@@ -1,0 +1,104 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1012" measuredH="726" mockupW="727" mockupH="701">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Canvas" x="415" y="25" w="412" h="701" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="495" y="40" w="77" h="50" measuredW="77" measuredH="79" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TextInput" x="611" y="48" w="178" h="-1" measuredW="90" measuredH="34" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Equipo%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Paragraph" x="573" y="182" w="140" h="31" measuredW="275" measuredH="80" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <text>01/01/2017%2017%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::IconLabel" x="531" y="166" w="-1" h="-1" measuredW="50" measuredH="63" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Equipo%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::IconLabel" x="701" y="166" w="-1" h="-1" measuredW="53" measuredH="63" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Equipo%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Paragraph" x="573" y="260" w="140" h="31" measuredW="275" measuredH="80" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <text>01/01/2017%2017%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::IconLabel" x="531" y="244" w="-1" h="-1" measuredW="50" measuredH="63" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Equipo%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::IconLabel" x="701" y="244" w="-1" h="-1" measuredW="53" measuredH="63" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Equipo%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::ComboBox" x="538" y="108" w="216" h="-1" measuredW="95" measuredH="35" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>24</size>
+        <text>Todos</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="com.balsamiq.mockups::Arrow" x="344" y="121" w="179" h="77" measuredW="150" measuredH="100" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <leftArrow>true</leftArrow>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="com.balsamiq.mockups::Paragraph" x="285" y="213" w="82" h="47" measuredW="275" measuredH="80" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Todos%0AFinalizados%0APor%20Jugar</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::DataGrid" x="506" y="322" w="274" h="155" measuredW="169" measuredH="155" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hasHeader>false</hasHeader>
+        <text>Total%20Jugados%2C%2010%0ATotal%20Ganados%2C%207%0ATotal%20Perdidos%2C%201%0ATotal%20Empates%2C%202%0APocentaje%20Victorias%2C%2070%25</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::DataGrid" x="550" y="492" w="-1" h="-1" measuredW="186" measuredH="65" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <hasHeader>false</hasHeader>
+        <text>Media%20Puntos%20Partido%2C%2015%0AMedia%20Puntos%20Asimilados%2C%2015</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::Label" x="581" y="572" w="-1" h="-1" measuredW="140" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Jugador%20Mejor%20Valorado</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::TextArea" x="550" y="601" w="184" h="44" measuredW="200" measuredH="140" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Jugador%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Webcam" x="691" y="603" w="43" h="41" measuredW="177" measuredH="146" zOrder="16" locked="false" isInGroup="-1"/>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Arrow" x="728" y="586" w="131" h="22" measuredW="150" measuredH="100" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Paragraph" x="868" y="583" w="144" h="49" measuredW="275" measuredH="80" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Al%20pulsar%20se%20ir%E1%20a%20estad%EDsticas%20de%20jugador</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
