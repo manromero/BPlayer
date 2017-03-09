@@ -1,0 +1,50 @@
+<div class="container" style="margin-top: 50px;">
+	<div class="row">
+		<div class="col-lg-6 col-xs-12 col-lg-offset-3">
+			<div class="widget tabs">
+				<div id="horizontal-tabs">
+					<ul class="tabs">
+						<li ng-click="switchTab('')"
+							ng-class="{current: tab.current===''}" translate>ALL</li>
+						<li ng-click="switchTab('BBVA')"
+							ng-class="{current: tab.current==='BBVA'}">Liga BBVA</li>
+						<li ng-click="switchTab('Adelante')"
+							ng-class="{current: tab.current==='Adelante'}">Liga Adelante</li>
+						<li ng-click="switchTab('Premier')"
+							ng-class="{current: tab.current==='Premier'}">Premier</li>
+						<li ng-click="switchTab('Calcio')"
+							ng-class="{current: tab.current==='Calcio'}">Calcio</li>
+						<li ng-click="switchTab('Bundesliga')"
+							ng-class="{current: tab.current==='Bundesliga'}">Bundesliga</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-2 col-xs-12 col-lg-offset-1">
+			<div>
+				<span translate>SORT</span>: <select ng-model="orderProp"
+					class="form-control">
+					<option value="-startDate">{{"LATEST" | translate}}</option>
+					<option value="startDate">{{"SOONER" | translate}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="col-lg-7 col-xs-12" style="margin-top: 20px;">
+			<p ng-hide="predictions.length" class="text-center"
+				style="font-weight: bold;" translate>EMPTY_LIST</p>
+			<div class="list-group">
+				<a  ng-href="#/prediction/details/{{prediction.id}}"
+					ng-repeat="prediction in filteredPredictions = (predictions | filter:{leagueName:tab.current}) | orderBy:orderProp"
+					class="list-group-item clearfix"> <b>{{prediction.homeTeamName}}</b>
+					<span class="text-color" style="font-weight: bold;">vs</span> 
+					<b>{{prediction.awayTeamName}}</b><i class="pull-right text-muted">{{prediction.startDate | date: 'dd/MM'}} - {{prediction.finishDate | date: 'dd/MM'}} 
+				</i>
+
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

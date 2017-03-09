@@ -1,0 +1,122 @@
+<div class="container" style="margin-top: 40px;">
+	<div class="row">
+		<div class="col-lg-10 col-xs-12 col-lg-offset-1">
+
+			<div class="col-lg-6 col-xs-12" style="margin-top: 10px;">
+				<div class="col-lg-6 col-xs-6">
+					<img ng-if="profile.image" ng-show="!editForm" data-ng-src="data:image/JPEG;base64,{{profile.image}}" class="img-responsive"
+						style="width: 200px; height: 200px;">
+					<img ng-if="!profile.image" ng-show="!editForm" src="static/img/team/team-default.jpg" class="img-responsive"
+						style="width: 200px; height: 200px;">
+						
+					<!-- IMG DRAG & DROP -->
+					<div flow-init flow-prevent-drop ng-show="editForm" style="margin-top:5px;">
+							<div ng-if="!$flow.files[0]" flow-files-submitted="$flow.upload()"
+							flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+							class="form-group img-responsive result" align="center">
+							<div flow-drop
+								flow-drag-enter="style={border: '2px #82dc23 dashed',color: '#82dc23'}"
+								flow-drag-leave="style={}" ng-style="style"
+								class="drop form-group text-center">
+								<p class="text-muted" align="center"
+									style="color: rgba(227, 59, 59, 0.9);font-size:20px;margin-top:50px;">
+	
+									<b translate>DROP_IMAGE</b>
+	
+								</p>
+								<div class="btn-xs btn-2-red" style="margin-top:50px;">
+									<span flow-btn translate>UPLOAD_IMAGE</span>
+								</div>
+	
+							</div>
+	
+						</div>
+						<div ng-if="$flow.files[0]" class="form-group"
+						ng-init="photo = $flow.files[0]">
+
+						<div ng-init="setImage($flow.files[0])" align="center">
+							<div ng-show="$flow.files.length" class="result">
+								<img flow-img="$flow.files[0]"
+									class="img-responsive center-block"
+									style="width: 200px; height: 200px;" />
+							</div>
+							<div class="progress progress-striped"
+								ng-class="{active: $flow.files[0].isUploading()}" style="margin-top:5px;margin-bottom:5px">
+								<div class="progress-bar" role="progressbar"
+									aria-valuenow="{{$flow.files[0].progress() * 100}}"
+									aria-valuemin="0" aria-valuemax="100"
+									ng-style="{width: ($flow.files[0].progress() * 100) + '%'}">
+									<span class="sr-only">{{$flow.files[0].progress()}}%
+										Complete</span>
+									</div>
+								</div>
+
+								<a class="btn-xs btn-2-red"
+									ng-click="$flow.files[0].cancel()" translate> REMOVE </a>
+
+							</div>
+
+						</div>
+					</div>
+					<!-- /IMG DRAG & DROP -->
+				</div>
+				<div class="col-lg-6 col-xs-6" style="margin-top: 10px;">
+					<span class="text-color"><b> @{{profile.username}} </b></span>
+					<p><i ng-show="profile.name && !editForm">{{profile.name}} </i><i ng-show="profile.surname && !editForm">{{profile.surname}}</i></p>
+					<input class="form-control col-lg-6 col-xs-12" placeholder="{{'NAME' | translate}}" ng-show="editForm" type="text" ng-model="profile.name"/>
+					<input class="form-control col-lg-6 col-xs-12" placeholder="{{'SURNAME' | translate}}" ng-show="editForm" type="text" ng-model="profile.surname"/>
+					<p class="text-muted" ng-show="profile.email && !editForm">{{profile.email}}</p>
+					<input class="form-control" placeholder="{{'E-mail' | translate}}" ng-show="editForm" type="email" ng-model="profile.email"/>
+					<b translate ng-show="editForm">EDIT_PASSWORD</b>
+					<input class="form-control col-lg-6 col-xs-12" placeholder="Password" ng-show="editForm" type="password" ng-model="profile.password"/>
+					<input class="form-control col-lg-6 col-xs-12" placeholder="{{'REPEAT_PASSWORD' | translate}}" ng-show="editForm" type="password" ng-model="profile.repassword"/>
+					<p ng-show="!editForm">
+						<b>Ranking:</b> {{profile.rankingPosition}}&deg;
+					</p>
+					<p ng-show="!editForm"><a href="#/user/followers">{{profile.followersNumber}} {{"FOLLOWERS" | translate | lowercase}}</a></p>
+					<p ng-show="!editForm"><a href="#/user/following">{{profile.followingNumber}} {{"FOLLOWING" | translate | lowercase}}</a></p>
+					<button ng-click="switchFollow(profile)" ng-show="profile.following===false"
+							class="btn-xs btn-2" style="width: 100px" translate>FOLLOW</button>
+						<button ng-click="switchFollow(profile)" ng-show="profile.following===true"
+							class="btn-xs btn-2-red" style="width: 100px;" translate>UNFOLLOW</button>
+
+				</div>
+				<div ng-init="editForm=false" ng-show="showEdit && !editForm" ng-click="editForm=true" class="col-lg-12 col-xs-12 text-center" style="background-color: #82dc23; color: white; cursor: pointer; margin:15px; padding: 5px; border-radius: 25px;">
+					<b translate >EDIT_PROFILE</b>
+				</div>
+				<div ng-show="editForm" class="col-lg-12 col-xs-12">
+					<p class="error" align="center" ng-if="errorEditingProfile" translate>{{errorEditingProfile}}</p>
+					<div ng-click="saveProfile()" class="col-lg-5 col-xs-12 text-center" style="background-color: #82dc23; color: white; cursor: pointer; margin:15px; padding: 5px; border-radius: 25px;">
+						<b translate >SAVE</b>
+					</div>
+					<div ng-click="editForm=false" class="col-lg-5 col-xs-12 text-center" style="background-color: #d12d32; color: white; cursor: pointer; margin:15px; padding: 5px; border-radius: 25px;">
+						<b translate >CANCEL</b>
+					</div>
+				</div>
+				<div class="col-lg-12 col-xs-12" style="margin-top:10px;">
+					<h4 class="text-center"translate>HIT_PERCENTAGE</h4>
+						<div isteven-omni-bar current-value="simpleValue" style="height: 25px;"><i>Simple</i> {{simpleValue | number: 0}}%</div>
+						<div isteven-omni-bar current-value="doubleValue" style="height: 25px;"> <i translate>DOUBLE</i> {{doubleValue | number:0}}%</div>
+						<div isteven-omni-bar current-value="finalTimeHomeGoals" style="height: 25px;"><i translate>FTHG</i> {{finalTimeHomeGoals | number:0}}% </div>
+						<div isteven-omni-bar current-value="finalTimeAwayGoals" style="height: 25px;"><i translate>FTAG</i> {{finalTimeAwayGoals | number:0}}%</div>
+						<div isteven-omni-bar current-value="moreThan25" style="height: 25px;"><i translate>MT25</i> {{moreThan25 | number:0}}%</div>
+				</div>
+
+			</div>
+
+			<div class="col-lg-6 col-xs-12" style="margin-top: 10px;">
+				<div class="list-group">
+					<a ng-href="#/prediction/user/details/{{prediction.id}}" ng-repeat="prediction in profile.predictions"
+						class="list-group-item clearfix"> <b>{{prediction.homeTeamName}}<span ng-if="prediction.homeTeamGoals!==null">: {{prediction.homeTeamGoals}}</span></b>
+						<span class="text-color">vs</span>
+						<b>{{prediction.awayTeamName}}<span ng-if="prediction.awayTeamGoals!==null">: {{prediction.awayTeamGoals}}</span></b>
+						<i class="pull-right">{{prediction.finishDate | date: "dd/mm/yyyy"}}
+					</i>
+
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

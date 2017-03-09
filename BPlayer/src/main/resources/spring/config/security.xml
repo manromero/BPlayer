@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security-3.2.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- Rest authentication entry point configuration -->
+	<http use-expressions="true" entry-point-ref="restServicesEntryPoint"
+		authentication-manager-ref="authenticationManagerForRest">
+		<sec:custom-filter ref="corsHandler" after="PRE_AUTH_FILTER" />
+		<intercept-url pattern="/**" />
+
+		<!-- Aquí empiezan los intercepts -->
+		
+		<!-- STATIC FILES -->
+		
+		<sec:intercept-url pattern="/j_spring_security_check" access="permitAll" />
+		<sec:intercept-url pattern="/api/join" access="permitAll" />
+		
+		
+		<!-- USER -->
+		<sec:intercept-url pattern="/api/user/profile" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/user/display" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/user/listFollowers" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/user/listFollowing" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/user/ranking" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/user/follow" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/user/find/*" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/user/edit" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/user/changeImage" access="isAuthenticated()" />
+		<!-- PREDICTION -->
+		<sec:intercept-url pattern="/api/game/listNextGames" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/prediction/systemPrediction/*" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/prediction/findOne/*" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/game/findOne/*" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/prediction/principalPrediction/*" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/comment/list" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/comment/save" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/comment/evaluate" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/prediction/saveUserPrediction" access="isAuthenticated()" />
+		<!-- TEAM -->
+		<sec:intercept-url pattern="/api/team/list" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/team/follow" access="isAuthenticated()" />
+		<sec:intercept-url pattern="/api/team/stadistics/*" access="isAuthenticated()" />
+		
+		
+		
+		<!-- Aquí terminan los intercepts -->
+
+		<sec:form-login authentication-success-handler-ref="mySuccessHandler"
+			authentication-failure-url="/#/?loginFailure=true" />
+		<sec:access-denied-handler ref="myAuthenticationAccessDeniedHandler" />
+		<http-basic />
+		<logout logout-url="/logout" />
+	</http>
+
+	<!-- Entry point for REST service. -->
+	<beans:bean id="restServicesEntryPoint" class="security.RestAuthenticationEntryPoint" />
+
+	<!-- Custom User details service which is provide the user data -->
+	<beans:bean id="customUserDetailsService" class="security.LoginService" />
+
+	<!-- Connect the custom authentication success handler -->
+	<beans:bean id="mySuccessHandler" class="security.RestAuthenticationSuccessHandler" />
+
+	<!-- Using Authentication Access Denied handler -->
+	<beans:bean id="myAuthenticationAccessDeniedHandler"
+		class="security.RestAuthenticationAccessDeniedHandler" />
+
+	<beans:bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<beans:bean id="corsHandler" class="security.SimpleCORSFilter" />
+
+
+	<!-- Authentication manager -->
+	<authentication-manager alias="authenticationManagerForRest">
+		<authentication-provider user-service-ref="customUserDetailsService">
+			<sec:password-encoder ref="passwordEncoder" />
+		</authentication-provider>
+	</authentication-manager>
+
+	<!-- Enable the annotations for defining the secure role -->
+	<global-method-security secured-annotations="enabled" />
+
+</beans:beans>
