@@ -1,5 +1,0 @@
-Falta:
- - Estadísticas Partido
- - Estadísticas Jugador
- - Estadísticas Equipo
- - El panel de control de un partido

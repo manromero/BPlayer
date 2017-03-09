@@ -1,2 +1,2 @@
 # BPlayer
-BPlayer is an application to managed team, player, matches in a basketball context
+BPlayer is an application to managed teams, players and matches in a basketball context.
