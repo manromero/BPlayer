@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    
+	<persistence-unit name="persistence-unit1" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<non-jta-data-source>java:jboss/datasources/cinetiDS</non-jta-data-source>
+		
+		<class>com.cgt.entity.AnlDrogasEntity</class>
+		<class>com.cgt.entity.CampanaAdhesionEntity</class>
+		<class>com.cgt.entity.CampanaEntity</class>
+		<class>com.cgt.entity.CesContactosEntity</class>
+		<class>com.cgt.entity.CesionesEntity</class>
+		<class>com.cgt.entity.CinemometroEntity</class>
+		<class>com.cgt.entity.ConvContactosEntity</class>
+		<class>com.cgt.entity.ConveniosEntity</class>
+		<class>com.cgt.entity.EntidadesEntity</class>
+		<class>com.cgt.entity.EquipamientoEntity</class>
+		<class>com.cgt.entity.EstadoAdhesionEntity</class>
+		<class>com.cgt.entity.EstadoCampanaEntity</class>
+		<class>com.cgt.entity.EstadoEquipamientoEntity</class>
+		<class>com.cgt.entity.EtiDigitalEntity</class>
+		<class>com.cgt.entity.LocalidadesEntity</class>
+		<class>com.cgt.entity.ModulosEntity</class>
+		<class>com.cgt.entity.ParametrosEntity</class>
+		<class>com.cgt.entity.PersContactoEntity</class>
+		<class>com.cgt.entity.ProvinciasEntity</class>
+		<class>com.cgt.entity.ResAnlDrogasEntity</class>
+		<class>com.cgt.entity.ResCinemometroEntity</class>
+		<class>com.cgt.entity.ResEtiDigitalEntity</class>
+		<class>com.cgt.entity.ResEtiEvidencialEntity</class>
+		<class>com.cgt.entity.TipoCampanaEntity</class>
+		<class>com.cgt.entity.TipoEntidadEntity</class>
+		<class>com.cgt.entity.TipoEquipamientoEntity</class>
+		<class>com.cgt.entity.TipoPerfilesEntity</class>
+		<class>com.cgt.entity.TipoPrivilegiosEntity</class>
+		<class>com.cgt.entity.TipoVerificacionEntity</class>
+		<class>com.cgt.entity.UsuariosEntity</class>
+		<class>com.cgt.entity.UsuariosParametrosEntity</class>
+		<class>com.cgt.entity.UsuariosPerfilesEntity</class>
+		<class>com.cgt.entity.UsuariosProvinciasEntity</class>
+		<class>com.cgt.entity.UsuariosParametrosEntity</class>
+		<class>com.cgt.entity.ConvDocumentosEntity</class>
+		<class>com.cgt.entity.CesDocumentosEntity</class>
+		<class>com.cgt.entity.VerificacionesEntity</class>
+		<class>com.cgt.entity.VerifDocumentosEntity</class>
+		<class>com.cgt.entity.TipoCampanaCinturonEntity</class>
+		<class>com.cgt.entity.CampanaCinturonEntity</class>
+		<class>com.cgt.entity.CampanaAlcoholDrogasEntity</class>
+		<class>com.cgt.entity.CampanaCamionesEntity</class>
+		<class>com.cgt.entity.CampanaMotocicletasEntity</class>
+		<class>com.cgt.entity.TipoCampanaMotocicletasEntity</class>
+		<class>com.cgt.entity.TipoCampanaVehiculoEntity</class>
+		<class>com.cgt.entity.CampanaCtrasSecundariasEntity</class>
+		<class>com.cgt.entity.CampanaVehiculoEntity</class>
+		<class>com.cgt.entity.CampanaVelocidadEntity</class>
+		<class>com.cgt.entity.CampanaTteEscolarEntity</class>
+		<class>com.cgt.entity.CampanaDistraccionesEntity</class>
+		<class>com.cgt.entity.CampanaProvinciaEntity</class>
+		<class>com.cgt.entity.VehiculoEntity</class>
+		
+		<properties>
+			<!-- Database configuration -->
+			<property name="hibernate.connection.datasource" value="java:jboss/datasources/cinetiDS" />
+			<property name="hibernate.dialect"                  value="org.hibernate.dialect.PostgreSQLDialect"/>
+			<!-- Hibernate configuration -->
+			<property name="jboss.as.jpa.providerModule" value="org.hibernate" />  
+ 			<property name="jboss.as.jpa.managed" value="false" />
+ 			<property name="hibernate.hbm2ddl.auto"       value="none"/>
+			<property name="hibernate.show_sql"           value="true"/>
+		</properties>
+
+		
+	</persistence-unit>    
+</persistence>

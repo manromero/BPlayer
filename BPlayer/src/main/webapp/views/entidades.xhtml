@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition template="/views/facelets/template.xhtml">
+		<ui:define name="content">
+			<h:outputScript library="js" name="funciones.js" />
+			<h:form id="idFormIndex" prependId="false">
+				
+						<p:fieldset legend="#{text['entidades.filtro']}" id="fSEntidadesFiltro">
+						
+			      			<p:panelGrid id="filtro" styleClass="ancho100 panelGridTransSinBordes">
+			      				
+			      				<p:row>
+			      					<p:column styleClass="ancho5">
+			      						<p:outputLabel for="filtroProvincias" value="#{text['entidades.filtro.provincia']}:" />
+			      					</p:column>
+			      					<p:column styleClass="ancho15 filtro-select-100">
+			      						<p:selectOneMenu id="filtroProvincias" value="#{entidadesManagedBean.filtroProvincia}">
+            								<f:selectItem itemLabel="#{text['entidades.filtro.seleccioneProvincia']}" itemValue="#{null}" noSelectionOption="true" />
+            								<f:selectItems value="#{entidadesManagedBean.listProvinciaDto}" var="provinciaDto" itemValue="#{provinciaDto.id}" itemLabel="#{provinciaDto.descripcion}" />
+            								<p:ajax event="change" listener="#{entidadesManagedBean.onFiltroProvinciaChange}" update="filtro cesionesBotones tablaCesiones conveniosBotones tablaConvenios"/>
+        								</p:selectOneMenu>
+        							</p:column>
+        							
+			      					<p:column styleClass="ancho20">
+			      						<p:outputLabel for="filtroMunicipio" value="#{text['entidades.filtro.municipio']}:" styleClass="derecha" />
+			      					</p:column>
+			      					<p:column styleClass="ancho15 filtro-select-100">
+			      						<p:selectOneMenu id="filtroMunicipio" value="#{entidadesManagedBean.filtroLocalidad}">
+            								<f:selectItem itemLabel="#{text['entidades.filtro.seleccioneMunicipio']}" itemValue="#{null}" noSelectionOption="true" />
+            								<f:selectItems value="#{entidadesManagedBean.listLocalidadDto}" var="localidadDto" itemValue="#{localidadDto.id}" itemLabel="#{localidadDto.descripcion}" />
+            								<p:ajax event="change" listener="#{entidadesManagedBean.onFiltroLocalidadChange}" update="filtro cesionesBotones tablaCesiones conveniosBotones tablaConvenios"/>
+        								</p:selectOneMenu>
+			      					</p:column>
+			      					
+			      					<p:column styleClass="ancho15">
+			      						<p:outputLabel for="filtroEntidad" value="#{text['entidades.filtro.entidad']}:" styleClass="derecha" />
+			      					</p:column>
+			      					<p:column styleClass="ancho15 filtro-select-100">
+			      						<p:selectOneMenu id="filtroEntidad" value="#{entidadesManagedBean.filtroEntidad}">
+            								<f:selectItem itemLabel="#{text['entidades.filtro.seleccioneEntidad']}" itemValue="#{null}" noSelectionOption="true" />
+            								<f:selectItems value="#{entidadesManagedBean.listEntidadDto}" var="entidadDto" itemValue="#{entidadDto.id}" itemLabel="#{entidadDto.descripcion}" />
+            								<p:ajax event="change" listener="#{entidadesManagedBean.onFiltroEntidadChange}" update="filtro cesionesBotones tablaCesiones conveniosBotones tablaConvenios"/>
+        								</p:selectOneMenu>
+			      					</p:column>
+			      					
+			      					<p:column styleClass="ancho15">
+			      						<p:commandButton value="#{text['entidades.filtro.limpiar']}" action="#{entidadesManagedBean.inicializarVariables}" styleClass="derecha" update="filtro cesionesBotones tablaCesiones conveniosBotones tablaConvenios cesionDialog convenioDialog" />
+			      					</p:column>
+			      				
+			      				</p:row>
+			      				
+			      			</p:panelGrid>
+			      			
+			    		</p:fieldset>
+			    		
+			    		<p:fieldset legend="#{text['entidades.cesiones']}" id="fSEntidadesCesiones">
+			      				<p:panelGrid id="cesionesBotones" styleClass="ancho100 panelGridTransSinBordes">
+			      				
+			      					<p:row>
+			      						<p:column>
+			      							<p:commandButton value="#{text['entidades.listados']}" styleClass="derecha"/>
+			      						</p:column>
+			      						
+			      						<p:column rendered="#{entidadesManagedBean.filtroEntidad > 0}" styleClass="ancho10" >
+			      							<p:commandButton value="#{text['entidades.cesiones.nuevaCesion']}" styleClass="derecha" />
+			      						</p:column>
+			      					</p:row>
+			      					
+			      				</p:panelGrid>
+      					
+      				
+      							<p:dataTable id="tablaCesiones" var="cesionDto" value="#{entidadesManagedBean.listCesionDto}" paginator="true" paginatorPosition="bottom" rows="5" selectionMode="single" rowKey="#{cesionDto.id}"
+      							emptyMessage="#{text['comun.cesiones.dataTable.noRecords']}">
+      							<p:ajax event="rowSelect" listener="#{entidadesManagedBean.onCesionSelected}" update="cesionDialog" oncomplete="PF('cesionDialogWV').show()"/>
+      							
+      								<p:column headerText="#{text['entidades.cesiones.numSerie']}">
+										<h:outputText value="#{cesionDto.equipamientoDto.numSerie}"/>
+									</p:column>
+									<p:column headerText="#{text['entidades.cesiones.tipoEquipamiento']}">
+										<h:outputText value="#{cesionDto.equipamientoDto.tipoEquipamientoDto.descripcion}"/>
+									</p:column>
+									<p:column headerText="#{text['entidades.municipio']}">
+										<h:outputText value="#{cesionDto.entidadDto.localidadDto.descripcion}"/>
+									</p:column>
+									<p:column headerText="#{text['entidades.cesiones.proximaRevision']}">
+										<h:outputText value="#{cesionDto.equipamientoDto.fechaProximaRevision}"/>
+									</p:column>
+									<p:column headerText="#{text['entidades.cesiones.fechaCesion']}">
+										<h:outputText value="#{cesionDto.fechaCesion}"/>
+									</p:column>
+									<p:column headerText="#{text['entidades.cesiones.fechaPrevistaBaja']}">
+										<h:outputText value="#{cesionDto.fechaPrevistaBaja}"/>
+									</p:column>
+									<p:column headerText="#{text['entidades.cesiones.fechaBaja']}">
+										<h:outputText value="#{cesionDto.fechaBaja}"/>
+									</p:column>
+      							</p:dataTable>
+			      							
+			    		</p:fieldset>
+			    		
+			    		<p:fieldset legend="#{text['entidades.convenios']}" id="fSEntidadesConvenios">
+			      				<p:panelGrid id="conveniosBotones" styleClass="ancho100 panelGridTransSinBordes">
+			      				
+			      					<p:row>
+			      						<p:column>
+			      							<p:commandButton value="#{text['entidades.listados']}" styleClass="derecha" />
+			      						</p:column>
+			      						
+			      						<p:column rendered="#{entidadesManagedBean.filtroEntidad > 0}" styleClass="ancho10" >
+			      							<p:commandButton value="#{text['entidades.convenios.nuevoConvenio']}" styleClass="derecha" />
+			      						</p:column>
+			      					</p:row>
+			      					
+			      				</p:panelGrid>
+			      				
+	      							<p:dataTable id="tablaConvenios" var="convenioDto" value="#{entidadesManagedBean.listConvenioDto}" paginator="true" paginatorPosition="bottom" rows="5" selectionMode="single" rowKey="#{convenioDto.id}"
+	      							emptyMessage="#{text['comun.convenios.dataTable.noRecords']}">
+	      							<p:ajax event="rowSelect" update="convenioDialog" oncomplete="PF('convenioDialogWV').show()"/>
+	      							
+	      								<p:column headerText="#{text['entidades.convenios.objeto']}">
+											<h:outputText value="#{convenioDto.objeto}"/>
+										</p:column>
+										<p:column headerText="#{text['entidades.municipio']}">
+											<h:outputText value="#{convenioDto.entidadDto.localidadDto.descripcion}"/>
+										</p:column>
+										<p:column headerText="#{text['entidades.convenios.fechaFirma']}">
+											<h:outputText value="#{convenioDto.fechaFirma}"/>
+										</p:column>
+										<p:column headerText="#{text['entidades.convenios.fechaInicio']}">
+											<h:outputText value="#{convenioDto.fechaInicio}"/>
+										</p:column>
+										<p:column headerText="#{text['entidades.convenios.fechaBaja']}">
+											<h:outputText value="#{convenioDto.fechaBaja}"/>
+										</p:column>
+										<p:column headerText="#{text['entidades.convenios.observaciones']}">
+											<h:outputText value="#{convenioDto.observaciones}"/>
+										</p:column>
+	      							</p:dataTable>
+	      							
+			    		</p:fieldset>
+			      
+			</h:form>
+			
+			<p:dialog id="cesionDialog" modal="true" appendTo="@(body)" widgetVar="cesionDialogWV" header="#{text['entidades.cesiones.dialog.header']}" resizable="false" closeOnEscape="true">
+					<h:form id="formDialogCesion" prependId="false">
+					<p:growl id="idGrowlPopUpCesion" sticky="false" showDetail="true" />
+
+					<p:panelGrid styleClass="ancho96 marginl2 margint2">
+						<p:row>
+							<p:column styleClass="ancho50">
+								<p:panelGrid styleClass="ancho100">
+									<p:row>
+										<p:column>
+											<p:outputLabel value="#{text['entidades.cesiones.dialog.entidad']}:" styleClass="derecha" />
+										</p:column>
+										<p:column>
+											#{entidadesManagedBean.cesionDtoSelected.entidadDto.descripcion}
+										</p:column>
+										<p:column>
+											<p:outputLabel for="cesionFechaCesion" value="#{text['entidades.cesiones.dialog.fechaCesion']}:" styleClass="derecha" />
+										</p:column>
+										<p:column>
+											<p:calendar id="cesionFechaCesion" value="#{entidadesManagedBean.cesionDtoSelected.fechaCesion}" styleClass="calendarAncho100"  />
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column>
+											<p:outputLabel for="cesionObservaciones" value="#{text['entidades.cesiones.dialog.observaciones']}:" styleClass="derecha" />
+										</p:column>
+										<p:column colspan="3">
+											<p:inputTextarea id="cesionObservaciones" value="#{entidadesManagedBean.cesionDtoSelected.observaciones}" styleClass="ancho100" />
+										</p:column>
+									</p:row>
+								</p:panelGrid>
+							</p:column>
+
+							<p:column styleClass="ancho50">
+								<p:panelGrid styleClass="ancho100">
+									<p:row>
+										<p:column>
+											<p:outputLabel for="cesionFechaPrevistaBaja" value="#{text['entidades.cesiones.dialog.fechaPrevistaBaja']}:" styleClass="derecha" />		
+										</p:column>
+										<p:column>
+											<p:calendar id="cesionFechaPrevistaBaja" value="#{entidadesManagedBean.cesionDtoSelected.fechaPrevistaBaja}" styleClass="calendarAncho100" />
+										</p:column>
+										<p:column>
+											<p:outputLabel for="cesionFechaBaja" value="#{text['entidades.cesiones.dialog.fechaBaja']}:" styleClass="derecha" />
+										</p:column>
+										<p:column>
+											<p:calendar id="cesionFechaBaja" value="#{entidadesManagedBean.cesionDtoSelected.fechaBaja}" styleClass="calendarAncho100" />
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column>
+											<p:outputLabel for="cesionMotivo" value="#{text['entidades.cesiones.dialog.motivo']}:" styleClass="derecha" />				
+										</p:column>
+										<p:column colspan="3">
+											<p:inputTextarea id="cesionMotivo" value="#{entidadesManagedBean.cesionDtoSelected.motivoBaja}" styleClass="ancho100" />									
+										</p:column>
+									</p:row>
+								</p:panelGrid>
+							</p:column>
+
+						</p:row>
+					</p:panelGrid>
+
+					<p:fieldset legend="#{text['entidades.cesiones.dialog.equipamiento']}" id="fSEntidadesDialogEquipamiento" styleClass="ancho96 marginl2 margint2">
+					
+						<p:panelGrid styleClass="ancho100">
+							<p:row>
+
+								<p:column styleClass="ancho50">
+									<p:panelGrid styleClass="ancho100">
+										<p:row>
+											<p:column>
+												<p:outputLabel value="#{text['entidades.cesiones.dialog.equipamiento.tipo']}:" styleClass="derecha" />
+											</p:column>
+											<p:column>
+												#{entidadesManagedBean.cesionDtoSelected.equipamientoDto.tipoEquipamientoDto.descripcion}
+											</p:column>
+											<p:column>
+												<p:outputLabel value="#{text['entidades.cesiones.dialog.equipamiento.numSerie']}:" styleClass="derecha" />
+											</p:column>
+											<p:column>
+												#{entidadesManagedBean.cesionDtoSelected.equipamientoDto.numSerie}
+											</p:column>
+										</p:row>
+										<p:row>
+											<p:column>
+												<p:outputLabel value="#{text['entidades.cesiones.dialog.equipamiento.marca']}:" styleClass="derecha" />
+											</p:column>
+											<p:column>
+												#{entidadesManagedBean.cesionDtoSelected.equipamientoDto.marca}
+											</p:column>
+											<p:column>
+												<p:outputLabel value="#{text['entidades.cesiones.dialog.equipamiento.modelo']}:" styleClass="derecha" />
+											</p:column>
+											<p:column>
+												#{entidadesManagedBean.cesionDtoSelected.equipamientoDto.modelo}
+											</p:column>
+										</p:row>
+										<p:row>
+											<p:column>
+												<p:outputLabel value="#{text['entidades.cesiones.dialog.equipamiento.proximaRevision']}:" styleClass="derecha" />
+											</p:column>
+											<p:column>
+												#{entidadesManagedBean.cesionDtoSelected.equipamientoDto.fechaProximaRevision}
+											</p:column>
+											<p:column>
+												<p:outputLabel value="#{text['entidades.cesiones.dialog.equipamiento.antena']}:" styleClass="derecha" />
+											</p:column>
+											<p:column>
+												antenaMostrarSicin
+											</p:column>
+										</p:row>
+										<p:row>
+											<p:column>
+												<p:outputLabel value="#{text['entidades.cesiones.dialog.equipamiento.camara']}:" styleClass="derecha" />
+											</p:column>
+											<p:column>
+												camaraMostrarSicin
+											</p:column>
+											<p:column>
+											</p:column>
+											<p:column>
+											</p:column>
+										</p:row>
+									</p:panelGrid>
+
+								</p:column>
+
+								<p:column styleClass="ancho50">
+									<p:panelGrid>
+										<p:row>
+											<p:column styleClass="ancho20">
+												<p:outputLabel for="cesionEquipamientoTipoEquip" value="#{text['entidades.cesiones.dialog.equipamiento.tipoEquipamiento']}:" styleClass="derecha" />				
+											</p:column>
+											<p:column styleClass="ancho30 filtro-select-100">
+												<p:selectOneMenu id="cesionEquipamientoTipoEquip" value="#{entidadesManagedBean.filtroTipoEquipamiento}">
+            											<f:selectItem itemLabel="#{text['entidades.cesiones.dialog.equipamiento.seleccioneTipo']}" itemValue="#{null}" noSelectionOption="true" />
+            											<f:selectItems value="#{entidadesManagedBean.listTipoEquipamientoDto}" var="tipoEquipamientoDto" itemValue="#{tipoEquipamientoDto.id}" itemLabel="#{tipoEquipamientoDto.descripcion}" />
+            											<p:ajax event="change" listener="#{entidadesManagedBean.onDialogCesionesTipoEquipamientoChange}" update="cesionesEquipamientosDisponibles"/>
+        										</p:selectOneMenu>			
+											</p:column>
+											<p:column styleClass="ancho20">
+												<p:outputLabel for="cesionEquipamientoEstadoEquip" value="#{text['entidades.cesiones.dialog.equipamiento.estado']}:" styleClass="derecha" />				
+											</p:column>
+											<p:column styleClass="ancho30 filtro-select-100">
+												<p:selectOneMenu id="cesionEquipamientoEstadoEquip" value="">
+            											<f:selectItem itemLabel="#{text['entidades.cesiones.dialog.equipamiento.seleccioneEstado']}" itemValue="#{null}" noSelectionOption="true" />
+            											<f:selectItems value="#{entidadesManagedBean.listEstadoEquipamientoDto}" var="estadoEquipamientoDto" itemValue="#{estadoEquipamientoDto.id}" itemLabel="#{estadoEquipamientoDto.descripcion}" />
+        										</p:selectOneMenu>			
+											</p:column>
+										</p:row>
+										<p:row>
+											<p:column colspan="4">
+												<p:dataTable id="cesionesEquipamientosDisponibles" var="equipamientoDto" value="#{entidadesManagedBean.listEquipamientoDtoDisponibles}" paginator="true" paginatorPosition="bottom" rows="5" selectionMode="single" rowKey="#{equipamientoDto.id}"
+												emptyMessage="#{text['comun.equipamientos.dataTable.noRecords']}" >
+      							
+				      								<p:column headerText="#{text['entidades.cesiones.dialog.equipamiento.numSerie']}">
+														<h:outputText value="#{equipamientoDto.numSerie}"/>
+													</p:column>
+													<p:column headerText="#{text['entidades.cesiones.dialog.equipamiento.tipoEquipamiento']}">
+														<h:outputText value="#{equipamientoDto.tipoEquipamientoDto.descripcion}"/>
+													</p:column>
+													<p:column headerText="#{text['entidades.cesiones.dialog.equipamiento.proximaRevision']}">
+														<h:outputText value="#{equipamientoDto.fechaProximaRevision}"/>
+													</p:column>
+      											</p:dataTable>			
+											</p:column>
+										</p:row>
+									</p:panelGrid>
+								</p:column>
+
+							</p:row>
+							
+						</p:panelGrid>	
+						
+					</p:fieldset>
+
+					<p:fieldset legend="#{text['entidades.dialog.contactos']}" id="fSEntidadesCesionesDialogContactos" styleClass="ancho47 marginl2 marginr2 margint2 izquierda">
+
+						<p:panelGrid styleClass="ancho100">
+							<p:row>
+								<p:column>
+									<p:commandButton value="#{text['entidades.dialog.contactos.addContacto']}" styleClass="derecha" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:dataTable id="cesionContactos" var="persContactoDto" value="#{entidadesManagedBean.cesionDtoSelected.listPersContactoDto}" paginator="true" paginatorPosition="bottom" rows="3" emptyMessage="#{text['entidades.dialog.contactos.noContactos']}" >
+				      					<p:column headerText="#{text['entidades.dialog.contactos.nombre']}">
+											<h:outputText value="#{persContactoDto.nombre}"/>
+										</p:column>
+										<p:column headerText="#{text['entidades.dialog.contactos.telefono']}">
+											<h:outputText value="#{persContactoDto.telefono}"/>
+										</p:column>
+										<p:column headerText="#{text['entidades.dialog.contactos.email']}">
+											<h:outputText value="#{persContactoDto.nombre}"/>
+										</p:column>
+		    						</p:dataTable>	
+    							</p:column>
+							</p:row>
+						</p:panelGrid>
+								
+					</p:fieldset>
+
+					<p:fieldset legend="#{text['entidades.dialog.documentos']}" id="fSEntidadesCesionesDialogDocumentos" styleClass="ancho47 margint2">
+
+						<p:panelGrid styleClass="ancho100">
+							<p:row>
+								<p:column>
+									<p:commandButton value="#{text['entidades.dialog.documentos.addDocumento']}" styleClass="derecha" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+								<p:dataTable id="cesionDocumentos" var="cesDocumentosDto" value="#{entidadesManagedBean.cesionDtoSelected.listCesDocumentosDto}" paginator="true" paginatorPosition="bottom" rows="3" emptyMessage="#{text['entidades.dialog.documentos.noDocumentos']}" >
+				      					<p:column headerText="#{text['entidades.dialog.documentos.nombre']}">
+											<h:outputText value="#{cesDocumentosDto.nombre}"/>
+										</p:column>
+										<p:column headerText="#{text['entidades.dialog.documentos.fechaSubida']}">
+											<h:outputText value="#{cesDocumentosDto.fecSubida}"/>
+										</p:column>
+										<p:column headerText="#{text['entidades.dialog.documentos.tamaño']}">
+											<h:outputText value="#{cesDocumentosDto.size}"/>
+										</p:column>
+		    						</p:dataTable>	
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+
+					</p:fieldset>				
+					
+					<p:panelGrid id="entidadesCesionesDialogBotones" styleClass="ancho96 marginl2 margint2">
+						<p:row>
+							<p:column>
+								<p:commandButton value="#{text['comun.guardar']}"/>
+								<p:commandButton value="#{text['entidades.cesiones.dialog.generarAcuerdo']}" styleClass="marginl2"/>							
+								<p:commandButton value="#{text['entidades.cesiones.dialog.oficioEntrega']}" styleClass="marginl2"/>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+					
+			 		</h:form>			 		
+			 </p:dialog>
+			 
+			 <p:dialog id="convenioDialog" modal="true" appendTo="@(body)" widgetVar="convenioDialogWV" header="#{text['entidades.convenios.dialog.header']}" resizable="false" closeOnEscape="true">
+					<h:form id="formDialogConvenio" prependId="false">
+					<p:growl id="idGrowlPopUpConvenio" sticky="false" showDetail="true" />
+					
+			 		</h:form>			 		
+			 </p:dialog>
+			
+			
+			
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>

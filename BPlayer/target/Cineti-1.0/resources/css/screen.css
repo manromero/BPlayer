@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #E0ECF8 !important;
+  background: #E0ECF8 !important;
+  font-family: Verdana, sans-serif;
+  font-size: 10px;
+}
+
+#page{
+  height: 100%;
+}
+
+/***************************************************************          ***************************************************************/
+/***************************************************************  HEADER    ***************************************************************/
+/***************************************************************          ***************************************************************/
+#idWellHeader{
+  background: #3265ce;
+  margin-bottom: 0;
+}
+
+#idPanelHeader label{
+  color:white;
+  font-size: 250%;
+  font-family: monaco, Consolas, "Lucida Console", monospace;
+}
+
+#imageCabecera{
+  float:right;
+  width: auto;
+}
+
+#idWeelSubHeader, #idWeelSubHeader2{
+  height: 2px;
+  margin-top: -1px;
+  padding-top: 0%;
+  background: rgb(129, 159, 247);
+  border-color: rgb(129, 159, 247);
+  color: white;
+}
+
+#idWeelSubHeader label, #idWeelSubHeader2 label{
+    font-weight: normal;
+    font-size: initial;
+  	color: white;
+}
+
+#idLogout, #idLogout2{
+  	color: #ffffff;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px !important;
+}
+
+#idLogout:hover, #idLogout2:hover{
+  	color: #000000;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px !important;
+}
+
+
+/***************************************************************          ***************************************************************/
+/***************************************************************  CONTENT     ***************************************************************/
+/***************************************************************          ***************************************************************/
+#content{
+  margin-top: -20px;
+  height: 100%;
+}
+
+/***************************************************************          ***************************************************************/
+/***************************************************************   LOGIN      ***************************************************************/
+/***************************************************************          ***************************************************************/
+.panelLogin{
+  width: 30%;
+  height: 210px;
+  background: #3265ce;
+    border-style: groove;
+    border-radius: 5px;
+  position: absolute;
+  top: 50%; /* Buscamos el centro horizontal (relativo) del navegador */
+  left: 50%; /* Buscamos el centro vertical (relativo) del navegador */
+  margin-top: -8%; /* Restamos la mitad de la altura del objeto con un margin-top */
+  margin-left: -17%; /* Restamos la mitad de la anchura del objeto con un margin-left */
+  padding-top: 1%;
+}
+
+.bPanelLogin{
+  color: #ffffff;
+}
+
+#idPanelLogin_header{
+  text-align: center;
+  background: #ffffff;
+}
+
+#idWellLogin.well{
+	background: transparent !important;
+}
+
+#idPanelLoginBlockUI{
+	width: 320px;
+}
+
+@media screen and (min-width: 1600px) {
+    body {
+        background-color: red;
+    }
+    #idPanelLoginBlockUI{
+    	width: 400px;
+    }
+}
+/***************************************************************          ***************************************************************/
+/***************************************************************   INDEX      ***************************************************************/
+/***************************************************************          ***************************************************************/
+
+#idWellIndex.well{
+	background: transparent !important;
+}
+
+/*************************************************************** 			    ***************************************************************/
+/*************************************************************** 	COMUN       ***************************************************************/
+/*************************************************************** 			    ***************************************************************/
+.derecha{
+	float: right;
+}
+.izquierda{
+	float: left;
+}
+.well{
+	border: none !important;
+    border-radius: 0px !important;
+}

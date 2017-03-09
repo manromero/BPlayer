@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<h:head>
+	    <h:outputStylesheet name="screen.css" library="css" />
+	    <title>#{text['template.head']}</title>
+	</h:head>
+	<h:body>
+		<b:well id="idWellHeader">
+			<b:panelGrid id="idPanelHeader" colSpans="8,4">
+				<h:graphicImage id="imageTitleCineti" library="images" height="80" name="title_cineti.png" valign="top"/>
+				<h:graphicImage id="imageCabecera" library="images" name="logo.png" valign="top"/>
+			</b:panelGrid>
+		</b:well>
+		<b:well id="idWellLogin">
+		<h:form id="formLogin" prependId="false">
+			<p:growl id="idGrowlLogin" sticky="true" showDetail="false"/>  
+			<p:panel id="idPanelLogin" styleClass="panelLogin" header="#{text['main.login']}">
+				<b:panelGrid colSpans="4,8" styleClass="bPanelLogin">
+					<p:spacer/><p:spacer/><p:spacer/><p:spacer/>
+					<p:outputLabel value="#{text['main.usuario']}" styleClass="derecha"></p:outputLabel>
+					<p:inputText id="alias" label="alias" value="#{loginManagedBean.username}" required="true" requiredMessage="#{text['main.usuario.not.blank']}" immediate="true" styleClass="izquierda ancho70" placeholder="#{text['main.placeholder.usuario']}">
+						<p:ajax/>
+					</p:inputText>
+					<p:spacer/><p:message id="idmsgAlias" for="alias" styleClass="noMostrar"/>
+					<p:outputLabel value="#{text['main.password']}" styleClass="derecha"></p:outputLabel>
+					<p:inputText id="password" value="#{loginManagedBean.password}" required="true" requiredMessage="#{text['main.password.not.blank']}" immediate="true" type="password" styleClass="izquierda ancho70" placeholder="#{text['main.placeholder.password']}">
+						<p:ajax/>					
+					</p:inputText>
+					<p:spacer/><p:message id="idmsgPassword" for="password" styleClass="noMostrar"/>
+				</b:panelGrid>
+				<br/>
+				<center>
+					<p:commandButton value="#{text['main.entrar']}" styleClass="btn btn-info" action="#{loginManagedBean.login}" onstart="PF('blockUIWidget').block();" oncomplete="PF('blockUIWidget').unblock();" update="idPanelLogin idGrowlLogin"/>
+					<pe:blockUI widgetVar="blockUIWidget" id="idBlockUI">  
+					    <h:panelGrid columns="2" id="idPanelLoginBlockUI">  
+					        <h:graphicImage id="idImgBlockUI" library="images" name="cargando.gif"/>  
+					        <h:outputText id="idTextoBlockUI" value="#{text['comun.por.favor.espere']}"/>  
+					    </h:panelGrid>  
+					</pe:blockUI> 
+				</center>
+			</p:panel>
+		</h:form>
+		</b:well>
+	</h:body>
+</html>

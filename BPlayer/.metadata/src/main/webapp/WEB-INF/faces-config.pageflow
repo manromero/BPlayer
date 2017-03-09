@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14884669115670" configfile="/Cineti/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="178" id="pf14884670839045" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf14885436254434 pf14885437208088 pf14885437208089 pf148854372080810 pf148854372080811" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/entidades.xhtml" id="pf14885436254436" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14885436254434" path="/views/entidades.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/login.xhtml" id="pf148854372080812" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14885437208088" path="/views/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/equipamientos.xhtml" id="pf148854372080813" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14885437208089" path="/views/equipamientos.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/campanas.xhtml" id="pf148854372080814" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf148854372080810" path="/views/campanas.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="views/administracion.xhtml" id="pf148854372080815" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf148854372080811" path="/views/administracion.xhtml"/>
+  <links id="pf14885436254434" target="pf14885436254436" source="pf14884670839045" outcome="entidades" redirect="true"/>
+  <links id="pf14885437208088" target="pf148854372080812" source="pf14884670839045" outcome="login" redirect="true"/>
+  <links id="pf14885437208089" target="pf148854372080813" source="pf14884670839045" outcome="equipamientos" redirect="true"/>
+  <links id="pf148854372080810" target="pf148854372080814" source="pf14884670839045" outcome="campanas" redirect="true"/>
+  <links id="pf148854372080811" target="pf148854372080815" source="pf14884670839045" outcome="administracion" redirect="true"/>
+</pageflow:Pageflow>
