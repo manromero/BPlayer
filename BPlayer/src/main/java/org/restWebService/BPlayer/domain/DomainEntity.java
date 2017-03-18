@@ -22,24 +22,24 @@ public abstract class DomainEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int id;
+	private long id;
 	@Version
-	private int version;
+	private long version;
 
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public int getVersion() {
+	public long getVersion() {
 		return version;
 	}
 
-	public void setVersion(int version) {
+	public void setVersion(long version) {
 		this.version = version;
 	}
 
@@ -47,25 +47,24 @@ public abstract class DomainEntity {
 
 	@Override
 	public int hashCode() {
-		return this.getId();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
 	}
 
 	@Override
-	public boolean equals(Object other) {
-		boolean result;
-
-		if (this == other)
-			result = true;
-		else if (other == null)
-			result = false;
-		else if (other instanceof Integer)
-			result = (this.getId() == (Integer) other);
-		else if (!this.getClass().isInstance(other))
-			result = false;
-		else
-			result = (this.getId() == ((DomainEntity) other).getId());
-
-		return result;
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DomainEntity other = (DomainEntity) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }
