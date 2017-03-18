@@ -17,6 +17,7 @@ public class BUser extends DomainEntity {
 	private String password;
 	private Byte[] imagen;
 	private String phoneNumber;
+	private String rol;
 	// Relaciones
 	@OneToMany(mappedBy="creater",fetch=FetchType.LAZY)
 	private List<Organization> createdOrganizations;
@@ -104,6 +105,14 @@ public class BUser extends DomainEntity {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 	
 }

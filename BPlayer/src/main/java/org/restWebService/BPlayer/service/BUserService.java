@@ -12,9 +12,17 @@ public class BUserService {
 	private BUserRepository bUserRepository;
 	
 	public BUser findByUsername(String username){
-		BUser res = new BUser();
+		BUser res = null;
 		if(username!=null && !username.equals("")){
 			res = bUserRepository.findByUsername(username);
+		}
+		return res;
+	}
+
+	public BUser findByUsernameAndPassword(String username, String password) {
+		BUser res = null;
+		if(username!=null && !username.equals("") && password!=null && !password.equals("")){
+			res = bUserRepository.findByUsernameAndPassword(username,password);
 		}
 		return res;
 	}

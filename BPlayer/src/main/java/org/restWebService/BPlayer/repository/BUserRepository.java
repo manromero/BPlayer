@@ -11,5 +11,8 @@ public interface BUserRepository extends JpaRepository<BUser, Long> {
 
 	@Query("select u from BUser u where u.username = ?1")
 	public BUser findByUsername(String username);
+
+	@Query("select u from BUser u where u.username = ?1 and u.password=?2")
+	public BUser findByUsernameAndPassword(String username, String password);
 	
 }
