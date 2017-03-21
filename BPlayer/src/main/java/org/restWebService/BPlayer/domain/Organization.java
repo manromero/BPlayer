@@ -16,7 +16,7 @@ public class Organization extends DomainEntity {
 	private List<BUser> followers;
 	@ManyToMany(fetch=FetchType.LAZY)
 	private List<BUser> administrators;
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private BUser creater;
 	
 	public String getName() {
