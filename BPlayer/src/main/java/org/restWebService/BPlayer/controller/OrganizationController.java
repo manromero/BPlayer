@@ -1,9 +1,10 @@
 package org.restWebService.BPlayer.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.restWebService.BPlayer.domain.BUser;
-import org.restWebService.BPlayer.domain.Organization;
 import org.restWebService.BPlayer.dto.OrganizationDto;
 import org.restWebService.BPlayer.service.BUserService;
 import org.restWebService.BPlayer.service.OrganizationService;
@@ -24,10 +25,17 @@ public class OrganizationController {
 	private BUserService bUserService;
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-    public OrganizationDto save(@RequestBody Organization organization, HttpServletRequest req) {
+    public OrganizationDto save(@RequestBody OrganizationDto organizationDto, HttpServletRequest req) {
 		BUser bUser = bUserService.findByUsername(req.getUserPrincipal().getName());
-		OrganizationDto res = organizationService.save(bUser, organization);
+		OrganizationDto res = organizationService.save(bUser, organizationDto);
 		return res;
     }
+	
+	@RequestMapping(value = "/findAdministratedByPrincipal")
+	public List<OrganizationDto> findAdministratedByPrincipal(HttpServletRequest req){
+		BUser bUser = bUserService.findByUsername(req.getUserPrincipal().getName());
+		List<OrganizationDto> res = organizationService.findAdministratedByBUser(bUser);
+		return res;
+	}
 
 }

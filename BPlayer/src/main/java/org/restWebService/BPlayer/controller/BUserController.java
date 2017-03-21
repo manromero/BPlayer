@@ -14,7 +14,7 @@ public class BUserController {
 	@Autowired
 	private BUserService bUserService;
 	
-    @RequestMapping("/findByUsername/{username}")
+    @RequestMapping(value="/findByUsername/{username}")
     public BUser findUserByName(@PathVariable("username") String name) {
     	BUser res = bUserService.findByUsername(name);
         return res;

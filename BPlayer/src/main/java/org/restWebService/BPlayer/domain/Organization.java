@@ -1,5 +1,6 @@
 package org.restWebService.BPlayer.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -18,6 +19,12 @@ public class Organization extends DomainEntity {
 	private List<BUser> administrators;
 	@ManyToOne(fetch=FetchType.LAZY)
 	private BUser creater;
+	
+	public Organization(){
+		super();
+		this.followers = new ArrayList<>();
+		this.administrators = new ArrayList<>();
+	}
 	
 	public String getName() {
 		return name;
