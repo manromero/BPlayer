@@ -1,10 +1,14 @@
 package org.restWebService.BPlayer.dto;
 
-public class OrganizationDto {
+public class OrganizationDto extends Dto {
 	
 	private long id;
 	private String name;
 	private Long bUserId;
+	
+	public OrganizationDto(){
+		super();
+	}
 	
 	public Long getId(){
 		return id;

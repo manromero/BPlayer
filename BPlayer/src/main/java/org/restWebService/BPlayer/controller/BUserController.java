@@ -1,10 +1,15 @@
 package org.restWebService.BPlayer.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.restWebService.BPlayer.domain.BUser;
+import org.restWebService.BPlayer.dto.BUserToRegisterDto;
 import org.restWebService.BPlayer.service.BUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,4 +24,14 @@ public class BUserController {
     	BUser res = bUserService.findByUsername(name);
         return res;
     }
+    
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+    public BUserToRegisterDto save(@RequestBody BUserToRegisterDto bUserToRegisterDto, HttpServletRequest req) {
+		BUserToRegisterDto res = null;
+		//TODO
+		return res;
+    }
+    
+    
 }
