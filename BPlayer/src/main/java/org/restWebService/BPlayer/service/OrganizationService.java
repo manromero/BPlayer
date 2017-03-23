@@ -23,6 +23,7 @@ public class OrganizationService {
 	 * @return
 	 */
 	public OrganizationDto save(BUser bUser, OrganizationDto organizationDto){
+		//TODO faltan validaciones
 		OrganizationDto res = null;
 		if(bUser!=null && organizationDto!=null){
 			Organization organization = convertDtoToEntity(organizationDto);
@@ -41,6 +42,7 @@ public class OrganizationService {
 	 * @return
 	 */
 	public List<OrganizationDto> findAdministratedByBUser(BUser bUser) {
+		//TODO faltan validaciones
 		List<OrganizationDto> res = new ArrayList<>();
 		if(bUser!=null){
 			List<Organization> aux = organizationRepository.findAdministratedByBUserId(bUser.getId());

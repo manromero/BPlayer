@@ -24,14 +24,11 @@ public class BUserController {
     	BUser res = bUserService.findByUsername(name);
         return res;
     }
-    
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
     public BUserToRegisterDto save(@RequestBody BUserToRegisterDto bUserToRegisterDto, HttpServletRequest req) {
-		BUserToRegisterDto res = null;
-		//TODO
+		BUserToRegisterDto res = bUserService.register(bUserToRegisterDto);
 		return res;
     }
-    
     
 }
