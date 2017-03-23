@@ -21,7 +21,6 @@ public class BUserService {
 	 * @return
 	 */
 	public BUser findByUsername(String username){
-		//TODO faltan validaciones
 		BUser res = null;
 		if(username!=null && !username.equals("")){
 			res = bUserRepository.findByUsername(username);
@@ -36,7 +35,6 @@ public class BUserService {
 	 * @return
 	 */
 	public BUser findByUsernameAndPassword(String username, String password) {
-		//TODO faltan validaciones
 		BUser res = null;
 		if(username!=null && !username.equals("") && password!=null && !password.equals("")){
 			res = bUserRepository.findByUsernameAndPassword(username,password);
@@ -51,7 +49,7 @@ public class BUserService {
 	 */
 	public BUserToRegisterDto register(BUserToRegisterDto bUserToRegisterDto) {
 		BUserToRegisterDto res = new BUserToRegisterDto();
-		List<String> errores = validateRegister(bUserToRegisterDto);
+		List<String> errores = validateBUserToRegisterDto(bUserToRegisterDto);
 		if(errores.isEmpty()){
 			//TODO
 		}else{
@@ -65,7 +63,7 @@ public class BUserService {
 	 * @param bUserToRegisterDto
 	 * @return
 	 */
-	private List<String> validateRegister(BUserToRegisterDto bUserToRegisterDto){
+	private List<String> validateBUserToRegisterDto(BUserToRegisterDto bUserToRegisterDto){
 		List<String> res = new ArrayList<>();
 		if(bUserToRegisterDto==null){
 			res.add("The new BUser cannot be null");
@@ -88,6 +86,24 @@ public class BUserService {
 				res.add("The file Repeat Password cannot be null");
 			}else if(!bUserToRegisterDto.getPassword().equals(bUserToRegisterDto.getRPassword())){
 				res.add("The file Password and Repeat Password do not match");
+			}
+			//TODO comprobar si existe un usuario con el mismo nombre de usuario
+		}
+		return res;
+	}
+
+	/**
+	 * Valida un bUser
+	 * @param bUser
+	 * @return
+	 */
+	public List<String> validateBUser(BUser bUser) {
+		List<String> res = new ArrayList<>();
+		if(bUser==null){
+			res.add("The BUser cannot be null");
+		}else{
+			if(bUser.getUsername()==null || bUser.getUsername().trim().equals("")){
+				res.add("The file Username cannot be null");
 			}
 		}
 		return res;

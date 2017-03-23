@@ -16,6 +16,9 @@ public class OrganizationService {
 	@Autowired
 	private OrganizationRepository organizationRepository;
 	
+	@Autowired
+	private BUserService bUserService;
+	
 	/**
 	 * Almacena o actualiza una organizacion
 	 * @param bUser
@@ -23,15 +26,35 @@ public class OrganizationService {
 	 * @return
 	 */
 	public OrganizationDto save(BUser bUser, OrganizationDto organizationDto){
-		//TODO faltan validaciones
-		OrganizationDto res = null;
-		if(bUser!=null && organizationDto!=null){
+		OrganizationDto res = new OrganizationDto();
+		List<String> errores = validateOrganizationDto(organizationDto);
+		errores.addAll(bUserService.validateBUser(bUser));
+		if(errores.isEmpty()){
 			Organization organization = convertDtoToEntity(organizationDto);
 			organization.setCreater(bUser);
 			//El creador sera tambien uno de los administradores
 			organization.getAdministrators().add(bUser);
 			Organization aux = organizationRepository.save(organization);
 			res = convertEntityToDto(aux);
+		}else{
+			res.setErrores(errores);
+		}
+		return res;
+	}
+	
+	/**
+	 * Validate una organizationDto
+	 * @param organizationDto
+	 * @return
+	 */
+	private List<String> validateOrganizationDto(OrganizationDto organizationDto){
+		List<String> res = new ArrayList<>();
+		if(organizationDto==null){
+			res.add("The Organization cannot be null");
+		}else{
+			if(organizationDto.getName()==null || organizationDto.getName().trim().equals(organizationDto.getName())){
+				res.add("The file Name cannot be null");
+			}
 		}
 		return res;
 	}
