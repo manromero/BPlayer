@@ -52,7 +52,7 @@ public class OrganizationService {
 		if(organizationDto==null){
 			res.add("The Organization cannot be null");
 		}else{
-			if(organizationDto.getName()==null || organizationDto.getName().trim().equals(organizationDto.getName())){
+			if(organizationDto.getName()==null || organizationDto.getName().trim().equals("")){
 				res.add("The file Name cannot be null");
 			}
 		}

@@ -51,7 +51,8 @@ public class BUserService {
 		BUserToRegisterDto res = new BUserToRegisterDto();
 		List<String> errores = validateBUserToRegisterDto(bUserToRegisterDto);
 		if(errores.isEmpty()){
-			//TODO
+			BUser bUser = convertDtoToEntity(bUserToRegisterDto);
+			bUserRepository.save(bUser);
 		}else{
 			res.setErrores(errores);
 		}
@@ -70,6 +71,11 @@ public class BUserService {
 		}else{
 			if(bUserToRegisterDto.getUsername()==null || bUserToRegisterDto.getUsername().trim().equals("")){
 				res.add("The file Username cannot be null");
+			}else{
+				BUser bUser = findByUsername(bUserToRegisterDto.getUsername());
+				if(bUser!=null){
+					res.add("There is a BUser with the same Username");
+				}
 			}
 			if(bUserToRegisterDto.getName()==null || bUserToRegisterDto.getName().trim().equals("")){
 				res.add("The file Name cannot be null");
@@ -80,14 +86,18 @@ public class BUserService {
 			if(bUserToRegisterDto.getEmail()==null || bUserToRegisterDto.getEmail().trim().equals("")){
 				res.add("The file Email cannot be null");
 			}
+			if(bUserToRegisterDto.getPhoneNumber()==null || bUserToRegisterDto.getPhoneNumber().trim().equals("")){
+				res.add("The file Phone Number cannot be null");
+			}
 			if(bUserToRegisterDto.getPassword()==null || bUserToRegisterDto.getPassword().trim().equals("")){
 				res.add("The file Password cannot be null");
-			}else if(bUserToRegisterDto.getRPassword()==null || bUserToRegisterDto.getRPassword().trim().equals("")){
+			}else if(bUserToRegisterDto.getPassword().length()<=5){
+				res.add("The file Password must have at least 5 characters");
+			}else if(bUserToRegisterDto.getrPassword()==null || bUserToRegisterDto.getrPassword().trim().equals("")){
 				res.add("The file Repeat Password cannot be null");
-			}else if(!bUserToRegisterDto.getPassword().equals(bUserToRegisterDto.getRPassword())){
+			}else if(!bUserToRegisterDto.getPassword().equals(bUserToRegisterDto.getrPassword())){
 				res.add("The file Password and Repeat Password do not match");
 			}
-			//TODO comprobar si existe un usuario con el mismo nombre de usuario
 		}
 		return res;
 	}
@@ -107,6 +117,25 @@ public class BUserService {
 			}
 		}
 		return res;
+	}
+	
+	//Convertidores
+	/**
+	 * Convierte una BUserToRegisterDto en un BUser
+	 * @param dto
+	 * @return
+	 */
+	public BUser convertDtoToEntity(BUserToRegisterDto bUserToRegisterDto){
+		BUser bUser = new BUser();
+		if(bUserToRegisterDto!=null){
+			bUser.setUsername(bUserToRegisterDto.getUsername());
+			bUser.setName(bUserToRegisterDto.getName());
+			bUser.setSurname(bUserToRegisterDto.getSurname());
+			bUser.setEmail(bUserToRegisterDto.getEmail());
+			bUser.setPhoneNumber(bUserToRegisterDto.getPhoneNumber());
+			bUser.setPassword(bUserToRegisterDto.getPassword());
+		}
+		return bUser;
 	}
 
 }

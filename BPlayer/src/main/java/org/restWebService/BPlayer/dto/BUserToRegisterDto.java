@@ -6,6 +6,7 @@ public class BUserToRegisterDto extends Dto {
 	private String name;
 	private String surname;
 	private String email;
+	private String phoneNumber;
 	private String password;
 	private String rPassword;
 	
@@ -49,16 +50,24 @@ public class BUserToRegisterDto extends Dto {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String getrPassword() {
+		return rPassword;
 	}
 
-	public String getRPassword() {
-		return rPassword;
+	public void setrPassword(String rPassword) {
+		this.rPassword = rPassword;
 	}
 
 	public void setRPassword(String rPassword) {
 		this.rPassword = rPassword;
 	}
-	
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 }
