@@ -1,0 +1,40 @@
+<ion-content>
+	<h1>Register BUserToRegisterDto</h1>
+	<form (ngSubmit)="registerBUser()">
+		<ion-item>
+			<ion-label>Username</ion-label>
+			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.username" name="username"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Name</ion-label>
+			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.name" name="name"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Surname</ion-label>
+			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.surname" name="surname"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Email</ion-label>
+			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.email" name="email"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Phone Number</ion-label>
+			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.phoneNumber" name="phoneNumber"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Password</ion-label>
+			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.password" name="password"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label>Confirm Password</ion-label>
+			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.rPassword" name="confirmPassword"></ion-input>
+		</ion-item>
+		
+		<button ion-button type="submit">Submit</button>
+		
+	</form>
+  
+  
+
+  
+</ion-content>
