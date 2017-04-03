@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-
+import { BUserService } from '../../providers/bUserService';
 
 @Component({
   selector: 'page-register',
-  templateUrl: 'register.html'
+  templateUrl: 'register.html',
+  providers: [BUserService]
 })
 export class Register {
 	
 	bUserToRegisterDto: {username: any, name: any, surname: any, email: any, phoneNumber: any, password: any, rPassword: any};
 	
-	constructor() {
+	constructor(private bUserService: BUserService) {
 		console.log('Constructor Register');
 		this.bUserToRegisterDto = {username: 'test', name: 'test', surname: 'test', email: 'test', phoneNumber: 'test', password: 'test', rPassword: 'test'};
 	}
@@ -17,6 +18,16 @@ export class Register {
 	registerBUser(){
 		console.log('New BUser is trying to register');
 		this.validateBUserToRegisterDto();
+		this.bUserService.register(this.bUserToRegisterDto).subscribe(
+			data => {
+				console.log(data);
+			},
+			err => {
+				console.log(err);
+			},
+			() => console.log('LLamada a bUserService.register finalizada')
+			
+		)
 	}
 	
 	//Valida que el usuario tenga todos los campos rellenos, si algo falla lo imprime por el log

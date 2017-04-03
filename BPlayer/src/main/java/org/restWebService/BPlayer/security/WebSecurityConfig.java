@@ -16,11 +16,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private BUserService bUserService;
 	
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-				.authorizeRequests()
+			.cors().and()
+			.authorizeRequests()
 				.antMatchers("/")
 				.permitAll()
 				.antMatchers(HttpMethod.POST, "/login")
