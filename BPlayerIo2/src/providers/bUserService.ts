@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions, Response} from '@angular/http';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -12,7 +13,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class BUserService {
 
-	constructor(public http: Http) {
+	constructor(public http: Http, public storage: Storage) {
 		console.log('Hello BUser Provider');
 	}
 	
@@ -21,14 +22,13 @@ export class BUserService {
 		let body = JSON.stringify(accountCredentials);
 		let headers = new Headers({ 'Content-Type': 'application/json'});
 		let options = new RequestOptions({ headers: headers });
-		var response = this.http.post('http://localhost:8081/login', body, options).map((response: Response)=> {
-                // login successful if there's a jwt token in the response
-                let user = response.json();
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
-            });
+		var response = this.http.post('http://localhost:8081/login', body, options).map(res =>  {
+			let token = res.headers.get("Authorization");
+			this.storage.ready().then(() => {
+				this.storage.set('id_token', token);
+			});
+			return res.headers.get("Authorization");
+		}).catch(this.handleError);
 		return response;
 	}
   

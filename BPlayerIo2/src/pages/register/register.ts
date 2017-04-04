@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { BUserService } from '../../providers/bUserService';
 
 @Component({
-  selector: 'page-register',
-  templateUrl: 'register.html',
-  providers: [BUserService]
+	selector: 'page-register',
+	templateUrl: 'register.html',
+	providers: [BUserService]
 })
 export class Register {
 	
@@ -26,7 +26,7 @@ export class Register {
 				console.log(err);
 			},
 			() => console.log('LLamada a bUserService.register finalizada')
-		)
+		);
 	}
 	
 	//Valida que el usuario tenga todos los campos rellenos, si algo falla lo imprime por el log

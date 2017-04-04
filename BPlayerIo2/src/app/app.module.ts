@@ -11,6 +11,21 @@ import { Main } from '../pages/main/main';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { Http } from '@angular/http';
+import { Storage, IonicStorageModule } from '@ionic/storage';
+
+let storage = new Storage();
+
+export function getAuthHttp(http) {
+  return new AuthHttp(new AuthConfig({
+    headerPrefix: 'Bearer',
+    noJwtError: true,
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => storage.get('id_token')),
+  }), http);
+}
+
 @NgModule({
   declarations: [
     MyApp,
@@ -22,7 +37,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 	Main
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+	IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,7 +53,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+	{provide: AuthHttp,
+      useFactory: getAuthHttp,
+      deps: [Http]}
   ]
 })
 export class AppModule {}
