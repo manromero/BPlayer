@@ -43,7 +43,7 @@ public class BUserService {
 	}
 
 	/**
-	 * 
+	 * Registra un nuevo usuario si no se encuentrarn errores
 	 * @param bUserToRegisterDto
 	 * @return
 	 */
@@ -58,7 +58,7 @@ public class BUserService {
 		}
 		return res;
 	}
-	
+
 	/**
 	 * Valida el BUser que se va a registrar
 	 * @param bUserToRegisterDto

@@ -41,7 +41,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 			throw new UsernameNotFoundException("User not found: " + creds.getUsername());
 		}
 		
-		return new UsernamePasswordAuthenticationToken(creds.getUsername(),	null, Collections.emptyList());
+		//TODO pensar si en el token queremos devolver la contrasenya
+		return new UsernamePasswordAuthenticationToken(creds.getUsername(),	creds.getPassword(), Collections.emptyList());
 	}
 
 	@Override
