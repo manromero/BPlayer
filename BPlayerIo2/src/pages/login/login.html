@@ -1,0 +1,17 @@
+<ion-content>
+	<h1>Login</h1>
+	<form (ngSubmit)="login()">
+		<ion-item>
+			<ion-label>Username</ion-label>
+			<ion-input type="text" [(ngModel)]="accountCredentials.username" name="username"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>Password</ion-label>
+			<ion-input type="text" [(ngModel)]="accountCredentials.password" name="password"></ion-input>
+		</ion-item>
+		
+		<button ion-button type="submit">Submit</button>
+		
+	</form>
+</ion-content>

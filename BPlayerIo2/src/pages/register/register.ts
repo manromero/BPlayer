@@ -26,7 +26,6 @@ export class Register {
 				console.log(err);
 			},
 			() => console.log('LLamada a bUserService.register finalizada')
-			
 		)
 	}
 	
