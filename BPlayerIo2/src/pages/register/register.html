@@ -62,7 +62,7 @@
 
 		<ion-item>
       <ion-label floating>Password</ion-label>
-			<ion-input type="text" formControlName="password"></ion-input>
+			<ion-input type="password" formControlName="password"></ion-input>
 		</ion-item>
     <ion-item *ngIf="bUserToRegisterDtoForm.controls['password'].hasError('required') && bUserToRegisterDtoForm.controls['password'].touched">
       <p>Password is required</p>
@@ -76,7 +76,7 @@
 
 		<ion-item>
       <ion-label floating>Confirm Password</ion-label>
-			<ion-input type="text" formControlName="rPassword"></ion-input>
+			<ion-input type="password" formControlName="rPassword"></ion-input>
 		</ion-item>
     <ion-item *ngIf="bUserToRegisterDtoForm.controls['rPassword'].hasError('required') && bUserToRegisterDtoForm.controls['rPassword'].touched">
       <p>Confirm Password is required</p>
