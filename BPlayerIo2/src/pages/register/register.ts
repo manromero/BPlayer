@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { NavController, AlertController } from 'ionic-angular';
 import { BUserService } from '../../providers/bUserService';
+import { PasswordValidation } from '../../validators/validation';
+import { Login } from '../login/login';
+
 
 @Component({
 	selector: 'page-register',
@@ -7,74 +12,58 @@ import { BUserService } from '../../providers/bUserService';
 	providers: [BUserService]
 })
 export class Register {
+	bUserToRegisterDtoForm: FormGroup;
 
-	bUserToRegisterDto: {username: any, name: any, surname: any, email: any, phoneNumber: any, password: any, rPassword: any};
-
-	constructor(private bUserService: BUserService) {
+	constructor(private bUserService: BUserService, public formBuilder: FormBuilder, private alertCtrl: AlertController, public navCtrl: NavController) {
 		console.log('Constructor Register');
-		this.bUserToRegisterDto = {username: 'test', name: 'test', surname: 'test', email: 'test', phoneNumber: 'test', password: 'test', rPassword: 'test'};
+    this.bUserToRegisterDtoForm = formBuilder.group({
+      username: ['',  Validators.compose([Validators.required, Validators.maxLength(50)])],
+      name: ['',  Validators.compose([Validators.required, Validators.maxLength(50)])],
+      surname: ['',  Validators.compose([Validators.required, Validators.maxLength(50)])],
+      email: ['', Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
+      phoneNumber: ['',  Validators.compose([Validators.required, Validators.maxLength(50)])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
+      rPassword: ['',  Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), PasswordValidation.passwordMatch])]
+    });
 	}
 
 	registerBUser(){
 		console.log('New BUser is trying to register');
-		let errores = this.validateBUserToRegisterDto();
-		if(errores.length==0){
-      this.bUserService.register(this.bUserToRegisterDto).subscribe(
+		//Tiene errores
+    if(!this.bUserToRegisterDtoForm.valid){
+      //Se muestra una alerta de error
+      let alert = this.alertCtrl.create({
+        title: 'Login error',
+        subTitle: 'Form has invalid values',
+        buttons: ['OK']
+      });
+      alert.present();
+    }else {
+      this.bUserService.register(this.bUserToRegisterDtoForm.value).subscribe(
         data => {
-          console.log(data);
+          let alert = this.alertCtrl.create({
+            title: 'BUser created',
+            subTitle: 'The BUser has been created properly',
+            buttons: [{
+              text:'OK' , handler: () => {
+                this.navCtrl.push(Login);
+              }
+            }]
+          });
+          alert.present();
         },
         err => {
           console.log(err);
+          let alert = this.alertCtrl.create({
+            title: 'Register Error',
+            subTitle: 'An unexpected error has occurred',
+            buttons: ['OK']
+          });
+          alert.present();
         },
         () => console.log('Call to bUserService.register finished')
       );
-    }else{
-		  console.log('Register Form has some errors ')
     }
-
 	}
 
-	//Valida que el usuario tenga todos los campos rellenos, si algo falla lo imprime por el log
-	validateBUserToRegisterDto(){
-    let errores: Array<String> = [];
-		if(this.bUserToRegisterDto!=null){
-			if(this.bUserToRegisterDto.username==null || this.bUserToRegisterDto.username==''){
-				console.log('Username can not be empty');
-				errores.push('Username can not be empty');
-			}
-			if(this.bUserToRegisterDto.name==null || this.bUserToRegisterDto.name==''){
-				console.log('Name can not be empty');
-        errores.push('Name can not be empty');
-			}
-			if(this.bUserToRegisterDto.surname==null || this.bUserToRegisterDto.surname==''){
-				console.log('Surname can not be empty');
-        errores.push('Surname can not be empty');
-			}
-			if(this.bUserToRegisterDto.email==null || this.bUserToRegisterDto.email==''){
-				console.log('Email can not be empty');
-        errores.push('Email can not be empty');
-			}
-			if(this.bUserToRegisterDto.phoneNumber==null || this.bUserToRegisterDto.phoneNumber==''){
-				console.log('Phone Number can not be empty');
-        errores.push('Phone Number can not be empty');
-			}
-			if(this.bUserToRegisterDto.password==null || this.bUserToRegisterDto.password==''){
-				console.log('Password can not be empty');
-        errores.push('Password can not be empty');
-			}else if(this.bUserToRegisterDto.password.length<=5) {
-        console.log('Password must have at least 5 characters');
-        errores.push('Password must have at least 5 characters');
-      }else if(this.bUserToRegisterDto.rPassword==null || this.bUserToRegisterDto.rPassword==''){
-        console.log('Confirm Password can not be empty');
-        errores.push('Confirm Password can not be empty');
-      }else if(this.bUserToRegisterDto.password!=this.bUserToRegisterDto.rPassword){
-        console.log('Password and Confirm Password must match');
-        errores.push('Password and Confirm Password must match');
-      }
-		}else{
-			console.log('BUserToRegisterDto can not be null');
-      errores.push('BUserToRegisterDto can not be null');
-		}
-		return errores;
-	}
 }

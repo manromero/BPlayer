@@ -1,40 +1,102 @@
 <ion-content>
 	<h1>Register BUserToRegisterDto</h1>
-	<form (ngSubmit)="registerBUser()">
-		<ion-item>
-			<ion-label>Username</ion-label>
-			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.username" name="username"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label>Name</ion-label>
-			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.name" name="name"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label>Surname</ion-label>
-			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.surname" name="surname"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label>Email</ion-label>
-			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.email" name="email"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label>Phone Number</ion-label>
-			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.phoneNumber" name="phoneNumber"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label>Password</ion-label>
-			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.password" name="password"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label>Confirm Password</ion-label>
-			<ion-input type="text" [(ngModel)]="bUserToRegisterDto.rPassword" name="confirmPassword"></ion-input>
-		</ion-item>
-		
-		<button ion-button type="submit">Submit</button>
-		
-	</form>
-  
-  
+	<form [formGroup]="bUserToRegisterDtoForm" (ngSubmit)="registerBUser()">
 
-  
+		<ion-item>
+      <ion-label floating>Username</ion-label>
+			<ion-input type="text" formControlName="username"></ion-input>
+		</ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['username'].hasError('required') && bUserToRegisterDtoForm.controls['username'].touched">
+      <p>Username is required</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['username'].hasError('maxlength') && bUserToRegisterDtoForm.controls['username'].touched">
+      <p>Username must have less than 50 characters</p>
+    </ion-item>
+
+		<ion-item>
+      <ion-label floating>Name</ion-label>
+			<ion-input type="text" formControlName="name"></ion-input>
+		</ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['name'].hasError('required') && bUserToRegisterDtoForm.controls['name'].touched">
+      <p>Name is required</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['name'].hasError('maxlength') && bUserToRegisterDtoForm.controls['name'].touched">
+      <p>Password must have less than 50 characters</p>
+    </ion-item>
+
+		<ion-item>
+      <ion-label floating>Surname</ion-label>
+			<ion-input type="text" formControlName="surname"></ion-input>
+		</ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['surname'].hasError('required') && bUserToRegisterDtoForm.controls['surname'].touched">
+      <p>Surname is required</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['surname'].hasError('maxlength') && bUserToRegisterDtoForm.controls['surname'].touched">
+      <p>Surname must have less than 50 characters</p>
+    </ion-item>
+
+		<ion-item>
+      <ion-label floating>Email</ion-label>
+			<ion-input type="email" formControlName="email"></ion-input>
+		</ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['email'].hasError('required') && bUserToRegisterDtoForm.controls['email'].touched">
+      <p>Email is required</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['email'].hasError('pattern') && bUserToRegisterDtoForm.controls['email'].touched">
+      <p>Email is invalid</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['email'].hasError('maxlength') && bUserToRegisterDtoForm.controls['email'].touched">
+      <p>Surname must have less than 50 characters</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Phone Number</ion-label>
+			<ion-input type="text" formControlName="phoneNumber"></ion-input>
+		</ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['phoneNumber'].hasError('required') && bUserToRegisterDtoForm.controls['phoneNumber'].touched">
+      <p>Phone Number is required</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['phoneNumber'].hasError('maxlength') && bUserToRegisterDtoForm.controls['phoneNumber'].touched">
+      <p>Phone Number must have less than 50 characters</p>
+    </ion-item>
+
+		<ion-item>
+      <ion-label floating>Password</ion-label>
+			<ion-input type="text" formControlName="password"></ion-input>
+		</ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['password'].hasError('required') && bUserToRegisterDtoForm.controls['password'].touched">
+      <p>Password is required</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['password'].hasError('minlength') && bUserToRegisterDtoForm.controls['password'].touched">
+      <p>Password must have at least 5 characters</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['password'].hasError('maxlength') && bUserToRegisterDtoForm.controls['password'].touched">
+      <p>Password must have less than 50 characters</p>
+    </ion-item>
+
+		<ion-item>
+      <ion-label floating>Confirm Password</ion-label>
+			<ion-input type="text" formControlName="rPassword"></ion-input>
+		</ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['rPassword'].hasError('required') && bUserToRegisterDtoForm.controls['rPassword'].touched">
+      <p>Confirm Password is required</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['rPassword'].hasError('minlength') && bUserToRegisterDtoForm.controls['rPassword'].touched">
+      <p>Confirm Password must have at least 5 characters</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['rPassword'].hasError('maxlength') && bUserToRegisterDtoForm.controls['rPassword'].touched">
+      <p>Confirm Password must have less than 50 characters</p>
+    </ion-item>
+    <ion-item *ngIf="bUserToRegisterDtoForm.controls['rPassword'].hasError('passwordNotMatch') && bUserToRegisterDtoForm.controls['rPassword'].touched">
+      <p>Password and Confirm password do not match</p>
+    </ion-item>
+
+
+    <button ion-button type="submit">Submit</button>
+
+	</form>
+
+
+
+
 </ion-content>

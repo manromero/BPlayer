@@ -1,14 +1,29 @@
 <ion-content>
 	<h1>Login</h1>
 	<form [formGroup]="accountCredentialsForm" (ngSubmit)="login()">
+
 		<ion-item>
       <ion-label floating>Username</ion-label>
-			<ion-input type="text" formControlName="username"></ion-input>
+			<ion-input type="text" formControlName="username" ></ion-input>
 		</ion-item>
+    <ion-item *ngIf="accountCredentialsForm.controls['username'].hasError('required') && accountCredentialsForm.controls['username'].touched">
+      <p>Username is required</p>
+    </ion-item>
+    <ion-item *ngIf="accountCredentialsForm.controls['username'].hasError('maxlength') && accountCredentialsForm.controls['username'].touched">
+      <p>Username must have less than 50 characters</p>
+    </ion-item>
+
 		<ion-item>
       <ion-label floating>Password</ion-label>
 			<ion-input type="password" formControlName="password"></ion-input>
 		</ion-item>
+    <ion-item *ngIf="accountCredentialsForm.controls['password'].hasError('required') && accountCredentialsForm.controls['password'].touched">
+      <p>Password is required</p>
+    </ion-item>
+    <ion-item *ngIf="accountCredentialsForm.controls['password'].hasError('maxlength') && accountCredentialsForm.controls['username'].touched">
+      <p>Password must have less than 50 characters</p>
+    </ion-item>
+
 		<button ion-button type="submit">Submit</button>
 	</form>
 </ion-content>

@@ -14,9 +14,9 @@ import 'rxjs/add/operator/map';
 export class BUserService {
 
 	constructor(public http: Http, public storage: Storage) {
-		console.log('Hello BUser Provider');
+		console.log('Constructor BUserService');
 	}
-	
+
 	login(accountCredentials){
 		console.log('Se procede a realizar la llamada a /login');
 		let body = JSON.stringify(accountCredentials);
@@ -24,14 +24,12 @@ export class BUserService {
 		let options = new RequestOptions({ headers: headers });
 		var response = this.http.post('http://localhost:8081/login', body, options).map(res =>  {
 			let token = res.headers.get("Authorization");
-			this.storage.ready().then(() => {
-				this.storage.set('id_token', token);
-			});
+      this.storage.set('id_token', token);
 			return res.headers.get("Authorization");
 		}).catch(this.handleError);
 		return response;
 	}
-  
+
 	register(bUserToRegisterDto) {
 		console.log('Se procede a realizar la llamada a buser/register')
 		let body = JSON.stringify(bUserToRegisterDto);
