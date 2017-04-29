@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NavController, AlertController } from 'ionic-angular';
 import { BUserService } from '../../providers/bUserService';
-import { PasswordValidation } from '../../validators/validation';
+import { Validation } from '../../utils/validation';
 import { Login } from '../login/login';
 
 
@@ -23,7 +23,7 @@ export class Register {
       email: ['', Validators.compose([Validators.required, Validators.maxLength(50), Validators.pattern(/^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i)])],
       phoneNumber: ['',  Validators.compose([Validators.required, Validators.maxLength(50)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
-      rPassword: ['',  Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), PasswordValidation.passwordMatch])]
+      rPassword: ['',  Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50), Validation.passwordMatch])]
     });
 	}
 

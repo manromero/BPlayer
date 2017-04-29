@@ -1,5 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Register BPlayer</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content>
-	<h1>Register BUserToRegisterDto</h1>
+
 	<form [formGroup]="bUserToRegisterDtoForm" (ngSubmit)="registerBUser()">
 
 		<ion-item>
@@ -92,7 +101,7 @@
     </ion-item>
 
 
-    <button ion-button type="submit">Submit</button>
+    <button ion-button type="submit" class="button98">Create BPlayer</button>
 
 	</form>
 

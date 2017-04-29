@@ -1,4 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Main</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content>
-	<h1 >Main Page</h1>
+
   <h2>Welcome {{usernameFromToken}}</h2>
+
+  <p>
+    <button ion-button type="submit" class="button98">Play Match</button>
+  </p>
+  <p>
+    <button ion-button type="submit" class="button98">Create Match</button>
+  </p>
+  <p>
+    <button ion-button type="submit" class="button98">Create Player</button>
+  </p>
+  <p>
+    <button ion-button type="submit" class="button98">Create Team</button>
+  </p>
+  <p>
+    <button ion-button (click)="goToCreateOrganizationPage()" class="button98">Create Organization</button>
+  </p>
+
 </ion-content>

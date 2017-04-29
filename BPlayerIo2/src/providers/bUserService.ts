@@ -13,6 +13,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class BUserService {
 
+  API_ENDPOINT = 'http://localhost:8081/'
+
 	constructor(public http: Http, public storage: Storage) {
 		console.log('Constructor BUserService');
 	}
@@ -22,7 +24,7 @@ export class BUserService {
 		let body = JSON.stringify(accountCredentials);
 		let headers = new Headers({ 'Content-Type': 'application/json'});
 		let options = new RequestOptions({ headers: headers });
-		var response = this.http.post('http://localhost:8081/login', body, options).map(res =>  {
+		var response = this.http.post(this.API_ENDPOINT+'login', body, options).map(res =>  {
 			let token = res.headers.get("Authorization");
       this.storage.set('id_token', token);
 			return res.headers.get("Authorization");
@@ -35,7 +37,7 @@ export class BUserService {
 		let body = JSON.stringify(bUserToRegisterDto);
 		let headers = new Headers({ 'Content-Type': 'application/json'});
 		let options = new RequestOptions({ headers: headers });
-		var response = this.http.post('http://localhost:8081/bUser/register', body, options).map(res => res.json()).catch(this.handleError);
+		var response = this.http.post(this.API_ENDPOINT+'bUser/register', body, options).map(res => res.json()).catch(this.handleError);
 		return response;
 	}
 

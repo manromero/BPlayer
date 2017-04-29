@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { NavController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
+import { CreateOrganization } from '../createOrganization/createOrganization';
 
 @Component({
   selector: 'page-main',
@@ -26,5 +27,10 @@ export class Main {
         }
       }));
 	}
+
+  //Va a la pagina de creacion de Organizations
+  goToCreateOrganizationPage() {
+    this.navCtrl.push(CreateOrganization);
+  }
 
 }

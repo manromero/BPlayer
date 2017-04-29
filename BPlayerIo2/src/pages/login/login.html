@@ -1,5 +1,5 @@
 <ion-content>
-	<h1>Login</h1>
+
 	<form [formGroup]="accountCredentialsForm" (ngSubmit)="login()">
 
 		<ion-item>
@@ -24,6 +24,12 @@
       <p>Password must have less than 50 characters</p>
     </ion-item>
 
-		<button ion-button type="submit">Submit</button>
+		<button ion-button type="submit" class="button98">Log In</button>
 	</form>
+  <p text-center>
+    I'm not a BPlayer
+  </p>
+  <p>
+    <button ion-button (click)="goToRegisterPage()" class="button98">Register a BPlayer</button>
+  </p>
 </ion-content>

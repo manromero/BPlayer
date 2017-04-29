@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create Organization</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="createOrganizationForm" (ngSubmit)="createOrganization()">
+
+    <ion-item>
+      <ion-label floating>Organization Name</ion-label>
+      <ion-input type="text" formControlName="name" ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="createOrganizationForm.controls['name'].hasError('required') && createOrganizationForm.controls['name'].touched">
+      <p>Name is required</p>
+    </ion-item>
+    <ion-item *ngIf="createOrganizationForm.controls['name'].hasError('maxlength') && createOrganizationForm.controls['name'].touched">
+      <p>Organization Name must have less than 50 characters</p>
+    </ion-item>
+
+    <button ion-button type="submit" class="button98">Create</button>
+  </form>
+
+
+</ion-content>

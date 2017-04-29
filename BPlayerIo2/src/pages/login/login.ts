@@ -5,6 +5,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import { BUserService } from '../../providers/bUserService';
 import { JwtHelper } from 'angular2-jwt';
 import { Main } from '../main/main';
+import { Register } from '../register/register';
 
 
 @Component({
@@ -25,6 +26,11 @@ export class Login {
     });
 		this.jwtHelper = new JwtHelper();
 	}
+
+  //Va a la pagina de registro
+  goToRegisterPage() {
+    this.navCtrl.push(Register);
+  }
 
 	login(){
 		console.log("A BUser is trying to Login");

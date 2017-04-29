@@ -7,6 +7,8 @@ import { ListPage } from '../pages/list/list';
 import { Register } from '../pages/register/register';
 import { Login } from '../pages/login/login';
 import { Main } from '../pages/main/main';
+import { CreateOrganization } from '../pages/createOrganization/createOrganization';
+import { MyOrganizations } from '../pages/myOrganizations/myOrganizations';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,9 +34,11 @@ export function getAuthHttp(http) {
     HelloIonicPage,
     ItemDetailsPage,
     ListPage,
-	Register,
-	Login,
-	Main
+	  Register,
+	  Login,
+	  Main,
+    CreateOrganization,
+    MyOrganizations
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -46,9 +50,11 @@ export function getAuthHttp(http) {
     HelloIonicPage,
     ItemDetailsPage,
     ListPage,
-	Register,
-	Login,
-	Main
+	  Register,
+	  Login,
+	  Main,
+    CreateOrganization,
+    MyOrganizations
   ],
   providers: [
     StatusBar,
