@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { NavController} from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
+import { OrganizationService } from '../../providers/organizationService';
 
 @Component({
   selector: 'page-detailsOrganization',
-  templateUrl: 'detailsOrganization.html'
+  templateUrl: 'detailsOrganization.html',
+  providers: [OrganizationService]
 })
 export class DetailsOrganization {
 
+  organization: any;
   jwtHelper: JwtHelper;
 
-	constructor(public storage: Storage, public navCtrl: NavController) {
+	constructor(public storage: Storage, public navCtrl: NavController, public navParams: NavParams, private organizationService: OrganizationService) {
 		console.log('Constructor CreateTeam');
     this.jwtHelper = new JwtHelper();
     this.storage.ready().then(()=>
@@ -21,10 +24,12 @@ export class DetailsOrganization {
         if(this.jwtHelper.isTokenExpired(token)){
           this.navCtrl.setRoot(HelloIonicPage);
         }else{
+          
           //LLamada al provider para recuperar los datos de la organization
-
+          this.organizationService.findDetailedOrganizationByIdOrganization(navParams.get('idOrganization'), token).subscribe(data => this.organization = data);
 
         }
+
       }));
 	}
 

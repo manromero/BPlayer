@@ -22,14 +22,22 @@ export class OrganizationService {
     let body = JSON.stringify(organizationDto);
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
     let options = new RequestOptions({ headers: headers });
-    var response = this.http.post(this.API_ENDPOINT+'organization/create', body, options).map(res => res.json()).catch(this.handleError);
+    let response = this.http.post(this.API_ENDPOINT+'organization/create', body, options).map(res => res.json()).catch(this.handleError);
     return response;
   }
 
   findAdministratedByPrincipal(token){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
     let options = new RequestOptions({ headers: headers });
-    var response = this.http.get(this.API_ENDPOINT+'organization/findAdministratedByPrincipal',options).map((res:Response) => res.json());
+    let response = this.http.get(this.API_ENDPOINT+'organization/findAdministratedByPrincipal',options).map(res => res.json()).catch(this.handleError);
+    return response;
+  }
+
+  findDetailedOrganizationByIdOrganization(idOrganization, token){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
+    let options = new RequestOptions({ headers: headers });
+    let url = this.API_ENDPOINT+'organization/findDetailedOrganizationByIdOrganization/'+idOrganization;
+    let response = this.http.get(url,options).map(res => res.json()).catch(this.handleError);
     return response;
   }
 

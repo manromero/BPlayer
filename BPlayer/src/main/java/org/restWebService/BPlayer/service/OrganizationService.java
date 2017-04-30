@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.restWebService.BPlayer.domain.BUser;
 import org.restWebService.BPlayer.domain.Organization;
+import org.restWebService.BPlayer.dto.BUserDto;
+import org.restWebService.BPlayer.dto.DetailedOrganizationDto;
 import org.restWebService.BPlayer.dto.OrganizationDto;
+import org.restWebService.BPlayer.dto.TeamDto;
 import org.restWebService.BPlayer.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,9 @@ public class OrganizationService {
 	
 	@Autowired
 	private BUserService bUserService;
+	
+	@Autowired
+	private TeamService teamService;
 	
 	/**
 	 * Almacena o actualiza una organizacion
@@ -65,11 +71,28 @@ public class OrganizationService {
 	 * @return
 	 */
 	public List<OrganizationDto> findAdministratedByBUser(BUser bUser) {
-		//TODO faltan validaciones
 		List<OrganizationDto> res = new ArrayList<>();
 		if(bUser!=null){
 			List<Organization> aux = organizationRepository.findAdministratedByBUserId(bUser.getId());
 			res = convertListEntityToListDto(aux);
+		}
+		return res;
+	}
+	
+	/**
+	 * Devuelve una organizacion junto con sus detalles
+	 * @param idOrganization
+	 * @return
+	 */
+	public DetailedOrganizationDto findDetailedOrganizationByIdOrganization(Long idOrganization) {
+		DetailedOrganizationDto res = null;
+		if(idOrganization!=null && !idOrganization.equals(0l)){
+			Organization organizationEntity = organizationRepository.findOne(idOrganization);
+			res = convertEntityToDetailedDto(organizationEntity);
+			List<BUserDto> administrators = bUserService.finAdministratorsByIdOrganization(idOrganization);
+			List<TeamDto> teams = teamService.findTeamsByIdOrganization(idOrganization);
+			res.setAdministrators(administrators);
+			res.setTeams(teams);
 		}
 		return res;
 	}
@@ -139,6 +162,21 @@ public class OrganizationService {
 			}
 		}
 		return entities;
+	}
+	
+	/**
+	 * Convierte en una organizationEntity en una organization detailed
+	 * @param entity
+	 * @return
+	 */
+	public DetailedOrganizationDto convertEntityToDetailedDto(Organization entity){
+		DetailedOrganizationDto res = new DetailedOrganizationDto();
+		if(entity!=null){
+			res.setId(entity.getId());
+			res.setCreatorName(entity.getCreater().getUsername());
+			res.setName(entity.getName());
+		}
+		return res;
 	}
 
 }

@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { NavController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
+import { DetailsOrganization } from '../detailsOrganization/detailsOrganization'
 import { OrganizationService } from '../../providers/organizationService';
 
 @Component({
@@ -31,5 +32,12 @@ export class MyOrganizations {
         }
       }));
 	}
+
+	//Va la la pagina de detalles de una organization
+  goToDetailsOrganizationPage(idOrganization){
+    this.navCtrl.push(DetailsOrganization, {
+      idOrganization: idOrganization
+    });
+  }
 
 }

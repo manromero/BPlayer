@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.restWebService.BPlayer.domain.BUser;
+import org.restWebService.BPlayer.dto.BUserDto;
 import org.restWebService.BPlayer.dto.BUserToRegisterDto;
 import org.restWebService.BPlayer.repository.BUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,21 @@ public class BUserService {
 		}
 		return res;
 	}
-
+	
+	/**
+	 * Devuelve todos los administradores de una determinada organization
+	 * @param idOrganization
+	 * @return
+	 */
+	public List<BUserDto> finAdministratorsByIdOrganization(Long idOrganization) {
+		List<BUserDto> res = new ArrayList<>();
+		if(idOrganization!=null){
+			List<BUser> entities = bUserRepository.finAdministratorsByIdOrganization(idOrganization);
+			res = convertListEntityToListDto(entities);
+		}
+		return res;
+	}
+	
 	/**
 	 * Registra un nuevo usuario si no se encuentrarn errores
 	 * @param bUserToRegisterDto
@@ -137,18 +152,35 @@ public class BUserService {
 		}
 		return bUser;
 	}
-
+	
 	/**
-	 * Devuelve todos los administradores de una determinada organization
-	 * @param idOrganization
+	 * Convierte un entity en dto
+	 * @param entity
 	 * @return
 	 */
-	public List<BUser> finAdministratorsByIdOrganization(Long idOrganization) {
-		List<BUser> res = new ArrayList<>();
-		if(idOrganization!=null){
-			res = bUserRepository.finAdministratorsByIdOrganization(idOrganization);
+	public BUserDto convertEntityToDto(BUser entity){
+		BUserDto dto = new BUserDto();
+		if(entity!=null){
+			dto.setId(entity.getId());
+			dto.setUsername(entity.getUsername());
 		}
-		return res;
+		return dto;
+	}
+	
+	/**
+	 * Convierte una lista de entities en una lista de dtos
+	 * @param entities
+	 * @return
+	 */
+	public List<BUserDto> convertListEntityToListDto(List<BUser> entities){
+		List<BUserDto> dtos = new ArrayList<>();
+		if(entities!=null){
+			for(BUser entity : entities){
+				BUserDto dto = convertEntityToDto(entity);
+				dtos.add(dto);
+			}
+		}
+		return dtos;
 	}
 
 }

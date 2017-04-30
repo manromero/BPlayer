@@ -6,6 +6,7 @@ import java.util.List;
 import org.restWebService.BPlayer.domain.BUser;
 import org.restWebService.BPlayer.domain.Organization;
 import org.restWebService.BPlayer.domain.Team;
+import org.restWebService.BPlayer.dto.BUserDto;
 import org.restWebService.BPlayer.dto.TeamDto;
 import org.restWebService.BPlayer.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,20 @@ public class TeamService {
 		}
 		return res;
 	}
+	
+	/**
+	 * Devuelve la lista de equipos que tiene una organization
+	 * @param idOrganization
+	 * @return
+	 */
+	public List<TeamDto> findTeamsByIdOrganization(Long idOrganization) {
+		List<TeamDto> res = new ArrayList<>();
+		if(idOrganization!=null){
+			List<Team> entities = teamRepository.findTeamsByIdOrganization(idOrganization);
+			res = convertListEntityToListDto(entities);
+		}
+		return res;
+	}
 
 	/**
 	 * Indica si el usuario administra la organization
@@ -57,9 +72,9 @@ public class TeamService {
 		res.addAll(bUserService.validateBUser(bUser));
 		if(res.isEmpty()){
 			//Las comprobaciones sobre el TeamDto ya estan realizadas en validateTeamDto
-			List<BUser> administrators = bUserService.finAdministratorsByIdOrganization(teamDto.getIdOrganization());
+			List<BUserDto> administrators = bUserService.finAdministratorsByIdOrganization(teamDto.getIdOrganization());
 			boolean isAnAdministrator = false;
-			for(BUser administrator : administrators){
+			for(BUserDto administrator : administrators){
 				if(administrator.getId()==bUser.getId()){
 					isAnAdministrator = true;
 					break;
@@ -130,6 +145,22 @@ public class TeamService {
 			dto.setIdOrganization(entity.getOrganization().getId());
 		}
 		return dto;
+	}
+	
+	/**
+	 * Convierte una lista de entity en una lista de dto
+	 * @param entities
+	 * @return
+	 */
+	public List<TeamDto> convertListEntityToListDto(List<Team> entities){
+		List<TeamDto> dtos = new ArrayList<>();
+		if(entities!=null){
+			for(Team entity : entities){
+				TeamDto dto = convertEntityToDto(entity);
+				dtos.add(dto);
+			}
+		}
+		return dtos;
 	}
 
 }

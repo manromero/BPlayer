@@ -23,7 +23,9 @@ public class Application {
                 registry.addMapping("/login").exposedHeaders("Authorization");
                 registry.addMapping("/organization/create");
                 registry.addMapping("/organization/findAdministratedByPrincipal");
+                registry.addMapping("/organization/findDetailedOrganizationByIdOrganization/*");
                 registry.addMapping("/team/create");
+                
             }
         };
     }
