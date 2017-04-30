@@ -1,8 +1,15 @@
 package org.restWebService.BPlayer.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.restWebService.BPlayer.domain.BUser;
+import org.restWebService.BPlayer.dto.TeamDto;
+import org.restWebService.BPlayer.service.BUserService;
 import org.restWebService.BPlayer.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -11,5 +18,15 @@ public class TeamController {
 	
 	@Autowired
 	private TeamService teamService;
+	
+	@Autowired
+	private BUserService bUserService;
+	
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+    public TeamDto create(@RequestBody TeamDto teamDto, HttpServletRequest req) {
+		BUser bUser = bUserService.findByUsername(req.getUserPrincipal().getName());
+		TeamDto res = teamService.save(bUser, teamDto);
+		return res;
+    }
 
 }

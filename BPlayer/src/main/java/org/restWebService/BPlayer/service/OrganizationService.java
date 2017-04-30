@@ -84,6 +84,7 @@ public class OrganizationService {
 		OrganizationDto dto = null;
 		if(entity!=null){
 			dto = new OrganizationDto();
+			dto.setId(entity.getId());
 			dto.setName(entity.getName());
 			dto.setbUserId(entity.getCreater().getId());
 		}

@@ -138,4 +138,17 @@ public class BUserService {
 		return bUser;
 	}
 
+	/**
+	 * Devuelve todos los administradores de una determinada organization
+	 * @param idOrganization
+	 * @return
+	 */
+	public List<BUser> finAdministratorsByIdOrganization(Long idOrganization) {
+		List<BUser> res = new ArrayList<>();
+		if(idOrganization!=null){
+			res = bUserRepository.finAdministratorsByIdOrganization(idOrganization);
+		}
+		return res;
+	}
+
 }

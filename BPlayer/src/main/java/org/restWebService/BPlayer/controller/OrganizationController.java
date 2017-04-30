@@ -24,8 +24,8 @@ public class OrganizationController {
 	@Autowired
 	private BUserService bUserService;
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-    public OrganizationDto save(@RequestBody OrganizationDto organizationDto, HttpServletRequest req) {
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+    public OrganizationDto create(@RequestBody OrganizationDto organizationDto, HttpServletRequest req) {
 		BUser bUser = bUserService.findByUsername(req.getUserPrincipal().getName());
 		OrganizationDto res = organizationService.save(bUser, organizationDto);
 		return res;
@@ -37,5 +37,5 @@ public class OrganizationController {
 		List<OrganizationDto> res = organizationService.findAdministratedByBUser(bUser);
 		return res;
 	}
-
+	
 }

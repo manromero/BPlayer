@@ -19,8 +19,11 @@ public class Application {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
+            	registry.addMapping("/bUser/register");
                 registry.addMapping("/login").exposedHeaders("Authorization");
-                registry.addMapping("/bUser/register");
+                registry.addMapping("/organization/create");
+                registry.addMapping("/organization/findAdministratedByPrincipal");
+                registry.addMapping("/team/create");
             }
         };
     }
