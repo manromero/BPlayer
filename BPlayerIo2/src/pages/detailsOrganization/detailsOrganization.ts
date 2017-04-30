@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { NavController } from 'ionic-angular';
+import { NavController} from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
-import { CreateOrganization } from '../createOrganization/createOrganization';
-import { CreateTeam } from '../createTeam/createTeam';
 
 @Component({
-  selector: 'page-main',
-  templateUrl: 'main.html'
+  selector: 'page-detailsOrganization',
+  templateUrl: 'detailsOrganization.html'
 })
-export class Main {
+export class DetailsOrganization {
 
-  usernameFromToken : string;
   jwtHelper: JwtHelper;
 
 	constructor(public storage: Storage, public navCtrl: NavController) {
-		console.log('Constructor Main');
+		console.log('Constructor CreateTeam');
     this.jwtHelper = new JwtHelper();
     this.storage.ready().then(()=>
       this.storage.get('id_token').then((token) => {
@@ -24,19 +21,11 @@ export class Main {
         if(this.jwtHelper.isTokenExpired(token)){
           this.navCtrl.setRoot(HelloIonicPage);
         }else{
-          this.usernameFromToken = this.jwtHelper.decodeToken(token).sub;
+          //LLamada al provider para recuperar los datos de la organization
+
+
         }
       }));
 	}
-
-  //Va a la pagina de creacion de Organizations
-  goToCreateOrganizationPage() {
-    this.navCtrl.push(CreateOrganization);
-  }
-
-  //Va a la pagina de creacion de Team
-  goToCreateTeamPage() {
-    this.navCtrl.push(CreateTeam);
-  }
 
 }

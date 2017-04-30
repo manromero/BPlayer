@@ -9,6 +9,8 @@ import { Login } from '../pages/login/login';
 import { Main } from '../pages/main/main';
 import { CreateOrganization } from '../pages/createOrganization/createOrganization';
 import { MyOrganizations } from '../pages/myOrganizations/myOrganizations';
+import { CreateTeam } from '../pages/createTeam/createTeam';
+import { DetailsOrganization } from '../pages/detailsOrganization/detailsOrganization';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,7 +40,9 @@ export function getAuthHttp(http) {
 	  Login,
 	  Main,
     CreateOrganization,
-    MyOrganizations
+    MyOrganizations,
+    CreateTeam,
+    DetailsOrganization
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -54,7 +58,9 @@ export function getAuthHttp(http) {
 	  Login,
 	  Main,
     CreateOrganization,
-    MyOrganizations
+    MyOrganizations,
+    CreateTeam,
+    DetailsOrganization
   ],
   providers: [
     StatusBar,

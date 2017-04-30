@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage';
 import { NavController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
 import { HelloIonicPage } from '../hello-ionic/hello-ionic';
-import { OrganizationService } from '../../providers/OrganizationService';
+import { OrganizationService } from '../../providers/organizationService';
 
 @Component({
   selector: 'page-myOrganizations',

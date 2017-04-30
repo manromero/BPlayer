@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create Team</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="createTeamForm" (ngSubmit)="createTeam()">
+
+    <ion-item>
+      <ion-label floating>Team Name</ion-label>
+      <ion-input type="text" formControlName="name" ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="createTeamForm.controls['name'].hasError('required') && createTeamForm.controls['name'].touched">
+      <p>Name is required</p>
+    </ion-item>
+    <ion-item *ngIf="createTeamForm.controls['name'].hasError('maxlength') && createTeamForm.controls['name'].touched">
+      <p>Name must have less than 50 characters</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Organization</ion-label>
+      <ion-select formControlName="idOrganization">
+        <ion-option value="0">Select an Organization</ion-option>
+        <ion-option *ngFor="let organizationDto of listAdministratedOrganizationDto" value="{{organizationDto.id}}">{{organizationDto.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="(createTeamForm.value.idOrganization==null || createTeamForm.value.idOrganization<1)  && createTeamForm.controls['idOrganization'].touched">
+      <p>Organization is required</p>
+    </ion-item>
+
+    <button ion-button type="submit" class="button98">Create</button>
+  </form>
+
+
+</ion-content>
