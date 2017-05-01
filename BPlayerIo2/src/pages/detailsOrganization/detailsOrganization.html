@@ -8,6 +8,29 @@
 </ion-header>
 
 <ion-content>
-  <p *ngIf="organization">{{organization.name}}</p>
+  <h2 text-center *ngIf="organization">{{organization.name}}</h2>
+  <h5 text-center *ngIf="organization">Created by {{organization.creatorName}}</h5>
+
+  <h3>Teams</h3>
+  <ion-list *ngIf="organization">
+    <button ion-item *ngFor="let team of organization.teams">
+      <div class="item-note">{{team.name}}</div>
+    </button>
+  </ion-list>
+
+  <p>
+    <button ion-button (click)="goToCreateTeamPage()" class="button98">Add Team</button>
+  </p>
+
+  <h3>Administrators</h3>
+  <ion-list *ngIf="organization">
+    <button ion-item *ngFor="let administrator of organization.administrators">
+      <div class="item-note">{{administrator.username}}</div>
+    </button>
+  </ion-list>
+
+  <p>
+    <button ion-button (click)="findListBUserToBeAdministrator()" class="button98">Add an Administrator</button>
+  </p>
 
 </ion-content>
