@@ -1,6 +1,9 @@
 package org.restWebService.BPlayer.controller;
 
+import java.util.List;
+
 import org.restWebService.BPlayer.domain.BUser;
+import org.restWebService.BPlayer.dto.BUserDto;
 import org.restWebService.BPlayer.dto.BUserToRegisterDto;
 import org.restWebService.BPlayer.service.BUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +31,11 @@ public class BUserController {
 		BUserToRegisterDto res = bUserService.register(bUserToRegisterDto);
 		return res;
     }
+	
+	@RequestMapping(value="/findListBUserToBeAdministrator/{idOrganization}")
+	public List<BUserDto> findListBUserToBeAdministrator(@PathVariable("idOrganization") Long idOrganization) {
+		List<BUserDto> res = bUserService.findListBUserToBeAdministrator(idOrganization);
+		return res;
+	}
     
 }

@@ -19,5 +19,8 @@ public interface BUserRepository extends JpaRepository<BUser, Long> {
 
 	@Query("select a from Organization o join o.administrators a where o.id = ?1 group by a")
 	public List<BUser> finAdministratorsByIdOrganization(Long idOrganization);
+
+	@Query("select b from BUser b where b.id not in (select a.id from Organization o join o.administrators a where o.id = ?1)")
+	public List<BUser> findListBUserToBeAdministrator(Long idOrganization);
 	
 }

@@ -58,6 +58,20 @@ public class BUserService {
 	}
 	
 	/**
+	 * Devuelve la lista de usuarios que pueden ser administradores (aun no lo son) de una organization
+	 * @param idOrganization
+	 * @return
+	 */
+	public List<BUserDto> findListBUserToBeAdministrator(Long idOrganization) {
+		List<BUserDto> res = new ArrayList<>();
+		if(idOrganization!=null){
+			List<BUser> entities = bUserRepository.findListBUserToBeAdministrator(idOrganization);
+			res = convertListEntityToListDto(entities);
+		}
+		return res;
+	}
+	
+	/**
 	 * Registra un nuevo usuario si no se encuentrarn errores
 	 * @param bUserToRegisterDto
 	 * @return

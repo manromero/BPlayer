@@ -21,6 +21,7 @@ public class Application {
             public void addCorsMappings(CorsRegistry registry) {
             	registry.addMapping("/bUser/register");
                 registry.addMapping("/login").exposedHeaders("Authorization");
+                registry.addMapping("/bUser/findListBUserToBeAdministrator/*");
                 registry.addMapping("/organization/create");
                 registry.addMapping("/organization/findAdministratedByPrincipal");
                 registry.addMapping("/organization/findDetailedOrganizationByIdOrganization/*");
