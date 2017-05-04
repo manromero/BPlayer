@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.restWebService.BPlayer.domain.BUser;
+import org.restWebService.BPlayer.domain.Organization;
 import org.restWebService.BPlayer.dto.BUserDto;
 import org.restWebService.BPlayer.dto.BUserToRegisterDto;
 import org.restWebService.BPlayer.repository.BUserRepository;
@@ -15,6 +16,9 @@ public class BUserService {
 	
 	@Autowired
 	private BUserRepository bUserRepository;
+	
+	@Autowired
+	private OrganizationService organizationService;
 	
 	/**
 	 * Devuelve el BUser por el username
@@ -84,6 +88,24 @@ public class BUserService {
 			bUserRepository.save(bUser);
 		}else{
 			res.setErrores(errores);
+		}
+		return res;
+	}
+	
+	/**
+	 * Añade un usuario a una organization, y deveuelve los administradores de la organization
+	 * @param idBUser
+	 * @param idOrganization
+	 * @return
+	 */
+	public List<BUserDto> addBUserToOrganization(Long idBUser, Long idOrganization) {
+		List<BUserDto> res = new ArrayList<>();
+		if(idBUser!=null && idOrganization!=null){
+			Organization organization = organizationService.findOne(idOrganization);
+			BUser bUser = bUserRepository.findOne(idBUser);
+			organization.getAdministrators().add(bUser);
+			organizationService.save(organization);
+			res = finAdministratorsByIdOrganization(idOrganization);
 		}
 		return res;
 	}

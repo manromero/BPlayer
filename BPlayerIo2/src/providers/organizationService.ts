@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers, RequestOptions, Response} from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Constants } from '../utils/constants';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -12,8 +13,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class OrganizationService {
 
-  API_ENDPOINT = 'http://localhost:8081/'
-
   constructor(public http: Http) {
     console.log('Constructor OrganizationService');
   }
@@ -22,21 +21,23 @@ export class OrganizationService {
     let body = JSON.stringify(organizationDto);
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
     let options = new RequestOptions({ headers: headers });
-    let response = this.http.post(this.API_ENDPOINT+'organization/create', body, options).map(res => res.json()).catch(this.handleError);
+    let url = Constants.API_ENDPOINT+'organization/create'
+    let response = this.http.post(url, body, options).map(res => res.json()).catch(this.handleError);
     return response;
   }
 
   findAdministratedByPrincipal(token){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
     let options = new RequestOptions({ headers: headers });
-    let response = this.http.get(this.API_ENDPOINT+'organization/findAdministratedByPrincipal',options).map(res => res.json()).catch(this.handleError);
+    let url = Constants.API_ENDPOINT+'organization/findAdministratedByPrincipal'
+    let response = this.http.get(url, options).map(res => res.json()).catch(this.handleError);
     return response;
   }
 
   findDetailedOrganizationByIdOrganization(idOrganization, token){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
     let options = new RequestOptions({ headers: headers });
-    let url = this.API_ENDPOINT+'organization/findDetailedOrganizationByIdOrganization/'+idOrganization;
+    let url = Constants.API_ENDPOINT+'organization/findDetailedOrganizationByIdOrganization/'+idOrganization;
     let response = this.http.get(url,options).map(res => res.json()).catch(this.handleError);
     return response;
   }

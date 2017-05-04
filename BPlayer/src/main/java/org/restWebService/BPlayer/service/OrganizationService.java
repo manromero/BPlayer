@@ -49,6 +49,19 @@ public class OrganizationService {
 	}
 	
 	/**
+	 * Actualiza/Guarda una organizatino en bbdd
+	 * @param organization
+	 * @return
+	 */
+	public Organization save(Organization organization) {
+		Organization res = null;
+		if(organization!=null){
+			res = organizationRepository.save(organization); 
+		}
+		return res;
+	}
+	
+	/**
 	 * Validate una organizationDto
 	 * @param organizationDto
 	 * @return
@@ -93,6 +106,19 @@ public class OrganizationService {
 			List<TeamDto> teams = teamService.findTeamsByIdOrganization(idOrganization);
 			res.setAdministrators(administrators);
 			res.setTeams(teams);
+		}
+		return res;
+	}
+	
+	/**
+	 * Devuelve una organization por su id
+	 * @param idOrganization
+	 * @return
+	 */
+	public Organization findOne(Long idOrganization){
+		Organization res = null;
+		if(idOrganization!=null){
+			res = organizationRepository.findOne(idOrganization);
 		}
 		return res;
 	}

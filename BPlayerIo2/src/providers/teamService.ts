@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers, RequestOptions, Response} from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Constants } from '../utils/constants';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -12,8 +13,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class TeamService {
 
-  API_ENDPOINT = 'http://localhost:8081/'
-
   constructor(public http: Http) {
     console.log('Constructor TeamService');
   }
@@ -22,7 +21,8 @@ export class TeamService {
     let body = JSON.stringify(teamDto);
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
     let options = new RequestOptions({ headers: headers });
-    var response = this.http.post(this.API_ENDPOINT+'team/create', body, options).map(res => res.json()).catch(this.handleError);
+    let url = Constants.API_ENDPOINT+'team/create';
+    var response = this.http.post(url, body, options).map(res => res.json()).catch(this.handleError);
     return response;
   }
 

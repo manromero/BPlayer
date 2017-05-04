@@ -73,7 +73,8 @@ export class DetailsOrganization {
                     text: 'Add',
                     handler: data => {
                       console.log(data);
-                      //TODO Add the selected administrator to the list of administrators
+                      //Se actualiza la lista de administradores
+                      this.bUserService.addBUserToOrganization(data,this.organization.id, token).subscribe(administrators => this.organization.administrators = administrators);
 
                     }
                   }

@@ -37,5 +37,11 @@ public class BUserController {
 		List<BUserDto> res = bUserService.findListBUserToBeAdministrator(idOrganization);
 		return res;
 	}
+	
+	@RequestMapping(value="/addBUserToOrganization/{idBUser}/{idOrganization}")
+	public List<BUserDto> addBUserToOrganization(@PathVariable("idBUser") Long idBUser, @PathVariable("idOrganization") Long idOrganization){
+		List<BUserDto> res = bUserService.addBUserToOrganization(idBUser, idOrganization);
+		return res;
+	}
     
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers, RequestOptions, Response} from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import { Constants } from '../utils/constants';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -13,8 +14,6 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class BUserService {
 
-  API_ENDPOINT = 'http://localhost:8081/'
-
 	constructor(public http: Http, public storage: Storage) {
 		console.log('Constructor BUserService');
 	}
@@ -24,7 +23,8 @@ export class BUserService {
 		let body = JSON.stringify(accountCredentials);
 		let headers = new Headers({ 'Content-Type': 'application/json'});
 		let options = new RequestOptions({ headers: headers });
-		var response = this.http.post(this.API_ENDPOINT+'login', body, options).map(res =>  {
+		let url = Constants.API_ENDPOINT+'login';
+		var response = this.http.post(url, body, options).map(res =>  {
 			let token = res.headers.get("Authorization");
       this.storage.set('id_token', token);
 			return res.headers.get("Authorization");
@@ -37,14 +37,23 @@ export class BUserService {
 		let body = JSON.stringify(bUserToRegisterDto);
 		let headers = new Headers({ 'Content-Type': 'application/json'});
 		let options = new RequestOptions({ headers: headers });
-		var response = this.http.post(this.API_ENDPOINT+'bUser/register', body, options).map(res => res.json()).catch(this.handleError);
+		let url = Constants.API_ENDPOINT+'bUser/register';
+		var response = this.http.post(url, body, options).map(res => res.json()).catch(this.handleError);
 		return response;
 	}
 
   findListBUserToBeAdministrator(idOrganization, token){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
     let options = new RequestOptions({ headers: headers });
-    let url = this.API_ENDPOINT+'bUser/findListBUserToBeAdministrator/'+idOrganization;
+    let url = Constants.API_ENDPOINT+'bUser/findListBUserToBeAdministrator/'+idOrganization;
+    let response = this.http.get(url,options).map(res => res.json()).catch(this.handleError);
+    return response;
+  }
+
+  addBUserToOrganization(idBUser, idOrganization, token){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
+    let options = new RequestOptions({ headers: headers });
+    let url = Constants.API_ENDPOINT+'bUser/addBUserToOrganization/'+idBUser+'/'+idOrganization;
     let response = this.http.get(url,options).map(res => res.json()).catch(this.handleError);
     return response;
   }

@@ -22,6 +22,7 @@ public class Application {
             	registry.addMapping("/bUser/register");
                 registry.addMapping("/login").exposedHeaders("Authorization");
                 registry.addMapping("/bUser/findListBUserToBeAdministrator/*");
+                registry.addMapping("/bUser/addBUserToOrganization/*/*");
                 registry.addMapping("/organization/create");
                 registry.addMapping("/organization/findAdministratedByPrincipal");
                 registry.addMapping("/organization/findDetailedOrganizationByIdOrganization/*");
