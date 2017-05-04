@@ -27,7 +27,7 @@ public class Application {
                 registry.addMapping("/organization/findAdministratedByPrincipal");
                 registry.addMapping("/organization/findDetailedOrganizationByIdOrganization/*");
                 registry.addMapping("/team/create");
-                
+                registry.addMapping("/player/create");
             }
         };
     }

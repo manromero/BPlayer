@@ -38,7 +38,6 @@ public class TeamService {
 		}		
 		if(errores.isEmpty()){
 			Team team = convertDtoToEntity(teamDto);
-			//El creador sera tambien uno de los administradores
 			Team aux = teamRepository.save(team);
 			res = convertEntityToDto(aux);
 		}else{

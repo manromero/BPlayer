@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
-import { HelloIonicPage } from '../hello-ionic/hello-ionic';
+import { Login } from '../login/login';
 import { CreateTeam } from '../createTeam/createTeam';
 import { OrganizationService } from '../../providers/organizationService';
 import { BUserService } from '../../providers/bUserService';
@@ -24,7 +24,7 @@ export class DetailsOrganization {
       this.storage.get('id_token').then((token) => {
         //Si el token a expirado nos vamos a la pagina de bienvenida
         if(this.jwtHelper.isTokenExpired(token)){
-          this.navCtrl.setRoot(HelloIonicPage);
+          this.navCtrl.setRoot(Login);
         }else{
 
           //LLamada al provider para recuperar los datos de la organization
@@ -48,7 +48,7 @@ export class DetailsOrganization {
       this.storage.get('id_token').then((token) => {
         //Si el token a expirado nos vamos a la pagina de bienvenida
         if(this.jwtHelper.isTokenExpired(token)){
-          this.navCtrl.setRoot(HelloIonicPage);
+          this.navCtrl.setRoot(Login);
         }else{
 
           //LLamamos a la funcion que recupera los administradores

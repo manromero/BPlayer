@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { NavController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
-import { HelloIonicPage } from '../hello-ionic/hello-ionic';
+import { Login } from '../login/login';
 import { CreateOrganization } from '../createOrganization/createOrganization';
 import { CreateTeam } from '../createTeam/createTeam';
+import { CreatePlayer } from '../createPlayer/createPlayer';
 
 @Component({
   selector: 'page-main',
@@ -22,7 +23,7 @@ export class Main {
       this.storage.get('id_token').then((token) => {
         //Si el token a expirado nos vamos a la pagina de bienvenida
         if(this.jwtHelper.isTokenExpired(token)){
-          this.navCtrl.setRoot(HelloIonicPage);
+          this.navCtrl.setRoot(Login);
         }else{
           this.usernameFromToken = this.jwtHelper.decodeToken(token).sub;
         }
@@ -37,6 +38,11 @@ export class Main {
   //Va a la pagina de creacion de Team
   goToCreateTeamPage() {
     this.navCtrl.push(CreateTeam);
+  }
+
+  //Va a la pagina de creacion de Player
+  goToCreatePlayerPage() {
+    this.navCtrl.push(CreatePlayer);
   }
 
 }

@@ -5,20 +5,20 @@ import { NavController, AlertController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
 import { Login } from '../login/login';
 import { OrganizationService } from '../../providers/organizationService';
-import { TeamService } from '../../providers/teamService';
+import { PlayerService } from '../../providers/playerService';
 
 @Component({
-  selector: 'page-createTeam',
-  templateUrl: 'createTeam.html',
-  providers: [OrganizationService, TeamService]
+  selector: 'page-createPlayer',
+  templateUrl: 'createPlayer.html',
+  providers: [OrganizationService, PlayerService]
 })
-export class CreateTeam {
+export class CreatePlayer {
 
   listAdministratedOrganizationDto : any;
-  createTeamForm: FormGroup;
+  createPlayerForm: FormGroup;
   jwtHelper: JwtHelper;
 
-	constructor(public storage: Storage, public navCtrl: NavController, public formBuilder: FormBuilder, private alertCtrl: AlertController, private organizationService: OrganizationService, private teamService: TeamService) {
+	constructor(public storage: Storage, public navCtrl: NavController, public formBuilder: FormBuilder, private alertCtrl: AlertController, private organizationService: OrganizationService, private playerService: PlayerService) {
 		console.log('Constructor CreateTeam');
     this.jwtHelper = new JwtHelper();
     this.storage.ready().then(()=>
@@ -29,23 +29,27 @@ export class CreateTeam {
         }else{
           //Recuperamos las organizaciones de las que somos administradores
           this.organizationService.findAdministratedByPrincipal(token).subscribe(data => this.listAdministratedOrganizationDto = data);
-
         }
       }));
-    this.createTeamForm = formBuilder.group({
+    this.createPlayerForm = formBuilder.group({
+      idOrganization: ['0', Validators.compose([Validators.required])],
       name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
-      idOrganization: ['0', Validators.compose([Validators.required])]
+      surname: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      grade: [''],
+      position: [''],
+      height: [''],
+      birthDate: ['']
     });
 	}
 
-  createTeam(){
-    console.log('New Team is trying to be created');
+  createPlayer(){
+    console.log('New Player is trying to be created');
     //Tiene errores
-    if(!this.createTeamForm.valid || !this.organizationHasBeenSelected()){
+    if(!this.createPlayerForm.valid || !this.organizationHasBeenSelected()){
       //Se muestra una alerta de error
       let alert = this.alertCtrl.create({
-        title: 'Team Error',
-        subTitle: 'Form has invalid values',
+        title: 'Player Error',
+        subTitle: 'Player has invalid values',
         buttons: ['OK']
       });
       alert.present();
@@ -58,11 +62,11 @@ export class CreateTeam {
             this.navCtrl.setRoot(Login);
           }else{
 
-            this.teamService.create(this.createTeamForm.value, token).subscribe(
+            this.playerService.create(this.createPlayerForm.value, token).subscribe(
               data => {
                 let alert = this.alertCtrl.create({
-                  title: 'Team created',
-                  subTitle: 'The Team has been created properly',
+                  title: 'Player created',
+                  subTitle: 'The Player has been created properly',
                   buttons: [{
                     text:'OK' , handler: () => {
                       this.navCtrl.pop();
@@ -80,7 +84,7 @@ export class CreateTeam {
                 });
                 alert.present();
               },
-              () => console.log('Call to team.create finished')
+              () => console.log('Call to player.create finished')
             );
 
           }
@@ -90,7 +94,7 @@ export class CreateTeam {
 
   //Comprueba que se ha seleccionado una organization
   organizationHasBeenSelected(){
-    return this.createTeamForm.value.idOrganization != null && this.createTeamForm.value.idOrganization > 0;
+    return this.createPlayerForm.value.idOrganization != null && this.createPlayerForm.value.idOrganization > 0;
   }
 
 }

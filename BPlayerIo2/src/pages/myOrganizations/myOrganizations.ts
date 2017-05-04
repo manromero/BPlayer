@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { NavController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
-import { HelloIonicPage } from '../hello-ionic/hello-ionic';
+import { Login } from '../login/login';
 import { DetailsOrganization } from '../detailsOrganization/detailsOrganization'
 import { OrganizationService } from '../../providers/organizationService';
 
@@ -23,7 +23,7 @@ export class MyOrganizations {
       this.storage.get('id_token').then((token) => {
         //Si el token a expirado nos vamos a la pagina de bienvenida
         if(this.jwtHelper.isTokenExpired(token)){
-          this.navCtrl.setRoot(HelloIonicPage);
+          this.navCtrl.setRoot(Login);
         }else{
 
           //Recuperamos la lista de organizations que tiene el usuario actual
