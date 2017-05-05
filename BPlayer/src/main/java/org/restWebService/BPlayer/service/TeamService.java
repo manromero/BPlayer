@@ -199,7 +199,7 @@ public class TeamService {
 	 * @param entities
 	 * @return
 	 */
-	public List<TeamDto> convertListEntityToListDto(List<Team> entities){
+	private List<TeamDto> convertListEntityToListDto(List<Team> entities){
 		List<TeamDto> dtos = new ArrayList<>();
 		if(entities!=null){
 			for(Team entity : entities){
