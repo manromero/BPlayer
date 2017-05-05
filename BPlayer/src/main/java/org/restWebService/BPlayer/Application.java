@@ -31,6 +31,7 @@ public class Application {
                 registry.addMapping("/team/findDetailedTeamByIdTeam/*");
                 registry.addMapping("/player/create");
                 registry.addMapping("/player/findPlayersByIdOrganization/*");
+                registry.addMapping("/player/addPlayerToTeam/*/*");
             }
         };
     }

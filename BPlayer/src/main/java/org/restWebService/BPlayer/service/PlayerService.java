@@ -6,6 +6,7 @@ import java.util.List;
 import org.restWebService.BPlayer.domain.BUser;
 import org.restWebService.BPlayer.domain.Organization;
 import org.restWebService.BPlayer.domain.Player;
+import org.restWebService.BPlayer.domain.Team;
 import org.restWebService.BPlayer.dto.BUserDto;
 import org.restWebService.BPlayer.dto.PlayerDto;
 import org.restWebService.BPlayer.repository.PlayerRepository;
@@ -20,6 +21,9 @@ public class PlayerService {
 	
 	@Autowired
 	private BUserService bUserService;
+	
+	@Autowired
+	private TeamService teamService;
 
 	/**
 	 * Actualiza o almacena un jugador
@@ -67,6 +71,24 @@ public class PlayerService {
 		if(idTeam!=null){
 			List<Player> entities = playerRepository.findPlayersByIdTeam(idTeam);
 			res = convertListEntityToListDto(entities);
+		}
+		return res;
+	}
+	
+	/**
+	 * Añade un palyer a un team, y devuelve los jugadores de un equipo
+	 * @param idBUser
+	 * @param idOrganization
+	 * @return
+	 */
+	public List<PlayerDto> addPlayerToTeam(Long idPlayer, Long idTeam) {
+		List<PlayerDto> res = new ArrayList<>();
+		if(idPlayer!=null && idTeam!=null){
+			Team team = teamService.findOne(idTeam);
+			Player player = playerRepository.findOne(idPlayer);
+			team.getListPlayer().add(player);
+			teamService.save(team);
+			res = findPlayersByIdTeam(idTeam);
 		}
 		return res;
 	}

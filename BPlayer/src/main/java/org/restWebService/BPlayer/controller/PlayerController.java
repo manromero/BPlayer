@@ -38,4 +38,10 @@ public class PlayerController {
 		return res;
 	}
 	
+	@RequestMapping(value="/addPlayerToTeam/{idPlayer}/{idTeam}")
+	public List<PlayerDto> addPlayerToTeam(@PathVariable("idPlayer") Long idPlayer, @PathVariable("idTeam") Long idTeam){
+		List<PlayerDto> res = playerService.addPlayerToTeam(idPlayer, idTeam);
+		return res;
+	}
+	
 }

@@ -52,6 +52,20 @@ public class TeamService {
 	}
 	
 	/**
+	 * Almacena/Actualiza un team
+	 * @param team
+	 * @return
+	 */
+	public Team save(Team team) {
+		Team res = null;
+		if(team!=null){
+			res = teamRepository.save(team);
+		}
+		return res;
+	}
+
+	
+	/**
 	 * Devuelve la lista de equipos que tiene una organization
 	 * @param idOrganization
 	 * @return
@@ -77,6 +91,19 @@ public class TeamService {
 			res = convertEntityToDetailedDto(teamEntity);
 			List<PlayerDto> listPlayerDto = playerService.findPlayersByIdTeam(idTeam);
 			res.setListPlayerDto(listPlayerDto);
+		}
+		return res;
+	}
+	
+	/**
+	 * Devuelve un team por su id
+	 * @param idTeam
+	 * @return
+	 */
+	public Team findOne(Long idTeam) {
+		Team res = null;
+		if(idTeam!=null){
+			res = teamRepository.findOne(idTeam);
 		}
 		return res;
 	}
