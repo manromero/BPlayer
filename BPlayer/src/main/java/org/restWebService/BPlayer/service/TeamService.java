@@ -7,6 +7,8 @@ import org.restWebService.BPlayer.domain.BUser;
 import org.restWebService.BPlayer.domain.Organization;
 import org.restWebService.BPlayer.domain.Team;
 import org.restWebService.BPlayer.dto.BUserDto;
+import org.restWebService.BPlayer.dto.DetailedTeamDto;
+import org.restWebService.BPlayer.dto.PlayerDto;
 import org.restWebService.BPlayer.dto.TeamDto;
 import org.restWebService.BPlayer.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,12 @@ public class TeamService {
 	
 	@Autowired
 	private BUserService bUserService;
+	
+	@Autowired
+	private OrganizationService organizationService;
+	
+	@Autowired
+	private PlayerService playerService;
 
 	/**
 	 * Almacena o actualiza un equipo
@@ -53,6 +61,22 @@ public class TeamService {
 		if(idOrganization!=null){
 			List<Team> entities = teamRepository.findTeamsByIdOrganization(idOrganization);
 			res = convertListEntityToListDto(entities);
+		}
+		return res;
+	}
+	
+	/**
+	 * Devuelve un equipo junto con sus detalles
+	 * @param idTeam
+	 * @return
+	 */
+	public DetailedTeamDto findDetailedTeamByIdTeam(Long idTeam) {
+		DetailedTeamDto res = null;
+		if(idTeam!=null && !idTeam.equals(0l)){
+			Team teamEntity = teamRepository.findOne(idTeam);
+			res = convertEntityToDetailedDto(teamEntity);
+			List<PlayerDto> listPlayerDto = playerService.findPlayersByIdTeam(idTeam);
+			res.setListPlayerDto(listPlayerDto);
 		}
 		return res;
 	}
@@ -157,6 +181,21 @@ public class TeamService {
 			}
 		}
 		return dtos;
+	}
+	
+	/**
+	 * Convierte en una entity en un team detailed
+	 * @param entity
+	 * @return
+	 */
+	private DetailedTeamDto convertEntityToDetailedDto(Team entity) {
+		DetailedTeamDto dto = new DetailedTeamDto();
+		if(entity!=null){
+			dto.setId(entity.getId());
+			dto.setName(entity.getName());
+			dto.setOrganizationDto(organizationService.convertEntityToDto(entity.getOrganization()));
+		}
+		return dto;
 	}
 
 }

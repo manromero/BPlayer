@@ -1,5 +1,6 @@
 package org.restWebService.BPlayer.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailedOrganizationDto extends Dto {
@@ -9,6 +10,12 @@ public class DetailedOrganizationDto extends Dto {
 	private String creatorName;
 	private List<TeamDto> teams;
 	private List<BUserDto> administrators;
+	
+	public DetailedOrganizationDto(){
+		super();
+		teams = new ArrayList<>();
+		administrators = new ArrayList<>();
+	}
 	
 	public long getId() {
 		return id;

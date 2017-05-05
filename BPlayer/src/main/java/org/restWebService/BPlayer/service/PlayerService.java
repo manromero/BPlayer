@@ -58,6 +58,20 @@ public class PlayerService {
 	}
 	
 	/**
+	 * Devuelve los players asociados a un equipo
+	 * @param idTeam
+	 * @return
+	 */
+	public List<PlayerDto> findPlayersByIdTeam(Long idTeam) {
+		List<PlayerDto> res = new ArrayList<>();
+		if(idTeam!=null){
+			List<Player> entities = playerRepository.findPlayersByIdTeam(idTeam);
+			res = convertListEntityToListDto(entities);
+		}
+		return res;
+	}
+	
+	/**
 	 * Indica si el usuario administra la organization
 	 * @param bUser
 	 * @param playerDto

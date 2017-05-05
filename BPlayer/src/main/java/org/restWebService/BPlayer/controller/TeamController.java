@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.restWebService.BPlayer.domain.BUser;
+import org.restWebService.BPlayer.dto.DetailedTeamDto;
 import org.restWebService.BPlayer.dto.TeamDto;
 import org.restWebService.BPlayer.service.BUserService;
 import org.restWebService.BPlayer.service.TeamService;
@@ -35,6 +36,12 @@ public class TeamController {
 	@RequestMapping(value = "/findTeamsByIdOrganization/{idOrganization}")
 	public List<TeamDto> findByIdOrganization(@PathVariable("idOrganization") Long idOrganization) {
 		List<TeamDto> res = teamService.findTeamsByIdOrganization(idOrganization);
+		return res;
+	}
+	
+	@RequestMapping(value = "/findDetailedTeamByIdTeam/{idTeam}")
+	public DetailedTeamDto findDetailedTeamByIdTeam(@PathVariable("idTeam") Long idTeam){
+		DetailedTeamDto res = teamService.findDetailedTeamByIdTeam(idTeam);
 		return res;
 	}
 

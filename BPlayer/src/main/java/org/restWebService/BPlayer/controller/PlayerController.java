@@ -37,5 +37,5 @@ public class PlayerController {
 		List<PlayerDto> res = playerService.findPlayersByIdOrganization(idOrganization);
 		return res;
 	}
-
+	
 }

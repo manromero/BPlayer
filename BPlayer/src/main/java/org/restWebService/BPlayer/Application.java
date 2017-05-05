@@ -28,6 +28,7 @@ public class Application {
                 registry.addMapping("/organization/findDetailedOrganizationByIdOrganization/*");
                 registry.addMapping("/team/create");
                 registry.addMapping("/team/findTeamsByIdOrganization/*");
+                registry.addMapping("/team/findDetailedTeamByIdTeam/*");
                 registry.addMapping("/player/create");
                 registry.addMapping("/player/findPlayersByIdOrganization/*");
             }
