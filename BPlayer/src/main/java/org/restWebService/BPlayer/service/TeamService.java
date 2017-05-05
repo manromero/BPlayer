@@ -20,9 +20,6 @@ public class TeamService {
 	
 	@Autowired
 	private BUserService bUserService;
-	
-	@Autowired
-	private OrganizationService organizationService;
 
 	/**
 	 * Almacena o actualiza un equipo

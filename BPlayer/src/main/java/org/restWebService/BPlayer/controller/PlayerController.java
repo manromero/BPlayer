@@ -1,5 +1,7 @@
 package org.restWebService.BPlayer.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.restWebService.BPlayer.domain.BUser;
@@ -7,6 +9,7 @@ import org.restWebService.BPlayer.dto.PlayerDto;
 import org.restWebService.BPlayer.service.BUserService;
 import org.restWebService.BPlayer.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,5 +31,11 @@ public class PlayerController {
 		PlayerDto res = playerService.save(bUser, playerDto);
 		return res;
     }
+	
+	@RequestMapping(value = "/findPlayersByIdOrganization/{idOrganization}")
+	public List<PlayerDto> findPlayersByIdOrganization(@PathVariable("idOrganization") Long idOrganization) {
+		List<PlayerDto> res = playerService.findPlayersByIdOrganization(idOrganization);
+		return res;
+	}
 
 }

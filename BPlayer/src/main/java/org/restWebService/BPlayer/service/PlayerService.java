@@ -44,6 +44,20 @@ public class PlayerService {
 	}
 	
 	/**
+	 * Devuelve la lista de jugadores que tiene una organization
+	 * @param idOrganization
+	 * @return
+	 */
+	public List<PlayerDto> findPlayersByIdOrganization(Long idOrganization) {
+		List<PlayerDto> res = new ArrayList<>();
+		if(idOrganization!=null){
+			List<Player> entities = playerRepository.findPlayersByIdOrganization(idOrganization);
+			res = convertListEntityToListDto(entities);
+		}
+		return res;
+	}
+	
+	/**
 	 * Indica si el usuario administra la organization
 	 * @param bUser
 	 * @param playerDto
@@ -142,6 +156,22 @@ public class PlayerService {
 			dto.setBirthDate(entity.getBirthDate());
 		}
 		return dto;
+	}
+	
+	/**
+	 * Convert List Entity to List Dto
+	 * @param entities
+	 * @return
+	 */
+	private List<PlayerDto> convertListEntityToListDto(List<Player> entities) {
+		List<PlayerDto> dtos = new ArrayList<>();
+		if(entities!=null){
+			for(Player entity : entities ){
+				PlayerDto dto = convertEntityToDto(entity);
+				dtos.add(dto);
+			}
+		}
+		return dtos;
 	}
 
 }
