@@ -123,6 +123,56 @@ public class OrganizationService {
 		return res;
 	}
 	
+	/**
+	 * Elimina una organization si el bUser es uno de sus administradores y no tiene teams
+	 * @param bUser
+	 * @param idOrganization
+	 * @return
+	 */
+	public List<String> deleteOrgnization(BUser bUser, Long idOrganization) {
+		List<String> res = new ArrayList<>();
+		if(bUser==null){
+			res.add("BUser can not be null");
+		}else if(idOrganization==null){
+			res.add("Organization can not be null");
+		}else{
+			Boolean isAnAdministrator = checkOrganizationIsAdministratedByBUser(idOrganization, bUser.getId());
+			if(!isAnAdministrator){
+				res.add("The BUser must be an administrator of the organization");
+			}else{
+				//Se comprueba que no tiene teams
+				Integer numberOfTeam = teamService.countTeamsByIdOrganization(idOrganization);
+				if(numberOfTeam.compareTo(0)>0){
+					res.add("It's not possible to delete an organization with teams");
+				}else{
+					Organization organization = organizationRepository.findOne(idOrganization);
+					organizationRepository.delete(organization);
+				}
+			}
+		}
+		return res;
+	}
+	
+	/**
+	 * Indica si el usuario administra la organization
+	 * @param idBUser
+	 * @param idOrganization
+	 * @return
+	 */
+	public Boolean checkOrganizationIsAdministratedByBUser(Long idOrganization, Long idBUser) {
+		Boolean res = false;
+		if(idOrganization!=null && idBUser!=null){
+			List<BUserDto> administrators = bUserService.finAdministratorsByIdOrganization(idOrganization);
+			for(BUserDto administrator : administrators){
+				if(administrator.getId()==idBUser){
+					res = true;
+					break;
+				}
+			}
+		}
+		return res;
+	}
+	
 	//Converters
 	/**
 	 * Convierte una organizacion en una OrganizacionDto

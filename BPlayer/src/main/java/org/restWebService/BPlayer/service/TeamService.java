@@ -6,7 +6,6 @@ import java.util.List;
 import org.restWebService.BPlayer.domain.BUser;
 import org.restWebService.BPlayer.domain.Organization;
 import org.restWebService.BPlayer.domain.Team;
-import org.restWebService.BPlayer.dto.BUserDto;
 import org.restWebService.BPlayer.dto.DetailedTeamDto;
 import org.restWebService.BPlayer.dto.PlayerDto;
 import org.restWebService.BPlayer.dto.TeamDto;
@@ -21,16 +20,13 @@ public class TeamService {
 	private TeamRepository teamRepository;
 	
 	@Autowired
-	private BUserService bUserService;
-	
-	@Autowired
 	private OrganizationService organizationService;
 	
 	@Autowired
 	private PlayerService playerService;
 
 	/**
-	 * Almacena o actualiza un equipo
+	 * Almacena o actualiza un equipo si es un administrador
 	 * @param bUser
 	 * @param teamDto
 	 * @return
@@ -39,7 +35,10 @@ public class TeamService {
 		TeamDto res = new TeamDto();
 		List<String> errores = validateTeamDto(teamDto);
 		if(errores.isEmpty()){
-			errores.addAll(checkTeamOrganizationIsAdministratedByBUser(bUser,teamDto));
+			Boolean isAnAdministrator = organizationService.checkOrganizationIsAdministratedByBUser(teamDto.getIdOrganization(), bUser.getId());
+			if(!isAnAdministrator){
+				errores.add("The BUser must be an administrator of the organization");
+			}
 		}		
 		if(errores.isEmpty()){
 			Team team = convertDtoToEntity(teamDto);
@@ -80,6 +79,19 @@ public class TeamService {
 	}
 	
 	/**
+	 * Devuelve el numero de equipos que tiene una determinada organization
+	 * @param idOrganization
+	 * @return
+	 */
+	public Integer countTeamsByIdOrganization(Long idOrganization){
+		Integer res = null;
+		if(idOrganization!=null){
+			res = teamRepository.findTeamsByIdOrganization(idOrganization).size();
+		}
+		return res;
+	}
+	
+	/**
 	 * Devuelve un equipo junto con sus detalles
 	 * @param idTeam
 	 * @return
@@ -104,32 +116,6 @@ public class TeamService {
 		Team res = null;
 		if(idTeam!=null){
 			res = teamRepository.findOne(idTeam);
-		}
-		return res;
-	}
-
-	/**
-	 * Indica si el usuario administra la organization
-	 * @param bUser
-	 * @param teamDto
-	 * @return
-	 */
-	private List<String> checkTeamOrganizationIsAdministratedByBUser(BUser bUser, TeamDto teamDto) {
-		List<String> res = new ArrayList<>();
-		res.addAll(bUserService.validateBUser(bUser));
-		if(res.isEmpty()){
-			//Las comprobaciones sobre el TeamDto ya estan realizadas en validateTeamDto
-			List<BUserDto> administrators = bUserService.finAdministratorsByIdOrganization(teamDto.getIdOrganization());
-			boolean isAnAdministrator = false;
-			for(BUserDto administrator : administrators){
-				if(administrator.getId()==bUser.getId()){
-					isAnAdministrator = true;
-					break;
-				}
-			}
-			if(!isAnAdministrator){
-				res.add("The actual BUser is not an administrator of the organization");
-			}
 		}
 		return res;
 	}

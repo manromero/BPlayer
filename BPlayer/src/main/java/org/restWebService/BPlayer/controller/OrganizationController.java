@@ -46,4 +46,11 @@ public class OrganizationController {
 		return res;
 	}
 	
+	@RequestMapping(value = "/deleteOrganizationByIdOrganization/{idOrganization}")
+	public List<String> deleteOrganizationByIdOrganization(@PathVariable("idOrganization") Long idOrganization, HttpServletRequest req){
+		BUser bUser = bUserService.findByUsername(req.getUserPrincipal().getName());
+		List<String> res = organizationService.deleteOrgnization(bUser, idOrganization);
+		return res;
+	}
+	
 }
