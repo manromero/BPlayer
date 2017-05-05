@@ -94,6 +94,19 @@ public class PlayerService {
 	}
 	
 	/**
+	 * Devuelve el numero de jugadores que tiene un determinado equip
+	 * @param idTeam
+	 * @return
+	 */
+	public Integer countPlayersByIdTeam(Long idTeam) {
+		Integer res = null;
+		if(idTeam!=null){
+			res = playerRepository.findPlayersByIdTeam(idTeam).size();
+		}
+		return res;
+	}
+	
+	/**
 	 * Indica si el usuario administra la organization
 	 * @param bUser
 	 * @param playerDto

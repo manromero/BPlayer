@@ -26,9 +26,11 @@ public class Application {
                 registry.addMapping("/organization/create");
                 registry.addMapping("/organization/findAdministratedByPrincipal");
                 registry.addMapping("/organization/findDetailedOrganizationByIdOrganization/*");
+                registry.addMapping("/organization/deleteOrganizationByIdOrganization/*");
                 registry.addMapping("/team/create");
                 registry.addMapping("/team/findTeamsByIdOrganization/*");
                 registry.addMapping("/team/findDetailedTeamByIdTeam/*");
+                registry.addMapping("/team/deleteTeamByIdTeam/*");
                 registry.addMapping("/player/create");
                 registry.addMapping("/player/findPlayersByIdOrganization/*");
                 registry.addMapping("/player/addPlayerToTeam/*/*");

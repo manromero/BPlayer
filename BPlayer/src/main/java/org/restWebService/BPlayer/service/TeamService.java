@@ -119,6 +119,36 @@ public class TeamService {
 		}
 		return res;
 	}
+	
+	/**
+	 * Elimina un equipo si somos uno de los administradores y el equipo no tiene jugadores
+	 * @param bUser
+	 * @param idTeam
+	 * @return
+	 */
+	public List<String> deleteTeam(BUser bUser, Long idTeam) {
+		List<String> res = new ArrayList<>();
+		if(bUser==null){
+			res.add("BUser can not be null");
+		}else if(idTeam==null){
+			res.add("Team can not be null");
+		}else{
+			Team team = teamRepository.findOne(idTeam);
+			Boolean isAnAdministrator = organizationService.checkOrganizationIsAdministratedByBUser(team.getOrganization().getId(), bUser.getId());
+			if(!isAnAdministrator){
+				res.add("The BUser must be an administrator of the organization of the team");
+			}else{
+				//Se comprueba que no tiene players
+				Integer numberOfPlayer = playerService.countPlayersByIdTeam(idTeam);
+				if(numberOfPlayer.compareTo(0)>0){
+					res.add("It's not possible to delete a team with players");
+				}else{
+					teamRepository.delete(team);
+				}
+			}
+		}
+		return res;
+	}
 
 	/**
 	 * Valida un team dto, si la cadena no esta vacia, contiene una lista de errores

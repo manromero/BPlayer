@@ -44,5 +44,12 @@ public class TeamController {
 		DetailedTeamDto res = teamService.findDetailedTeamByIdTeam(idTeam);
 		return res;
 	}
+	
+	@RequestMapping(value = "/deleteTeamByIdTeam/{idTeam}")
+	public List<String> deleteTeamByIdTeam(@PathVariable("idTeam") Long idTeam, HttpServletRequest req){
+		BUser bUser = bUserService.findByUsername(req.getUserPrincipal().getName());
+		List<String> res = teamService.deleteTeam(bUser, idTeam);
+		return res;
+	}
 
 }
