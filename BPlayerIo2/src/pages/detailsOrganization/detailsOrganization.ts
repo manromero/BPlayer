@@ -98,7 +98,10 @@ export class DetailsOrganization {
         }
 
       }));
+  }
 
+  deleteOrganization(){
+    console.log("Trying to delete an organization");
   }
 
 }

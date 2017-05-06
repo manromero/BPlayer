@@ -19,7 +19,7 @@
   </ion-list>
 
   <p>
-    <button ion-button (click)="goToCreateTeamPage()" class="button98">Add Team</button>
+    <button ion-button full (click)="goToCreateTeamPage()">Add Team</button>
   </p>
 
   <h3>Administrators</h3>
@@ -29,8 +29,12 @@
     </button>
   </ion-list>
 
-  <p>
-    <button ion-button (click)="findListBUserToBeAdministrator()" class="button98">Add an Administrator</button>
+  <p *ngIf="organization">
+    <button ion-button full (click)="findListBUserToBeAdministrator()">Add an Administrator</button>
+  </p>
+
+  <p *ngIf="organization">
+    <button ion-button full color="danger" (click)="deleteOrganization()" [disabled]="organization.teams.length>0">Delete</button>
   </p>
 
 </ion-content>

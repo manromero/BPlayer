@@ -42,6 +42,14 @@ export class OrganizationService {
     return response;
   }
 
+  deleteOrganizationByIdOrganization(idOrganization, token){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization' : token});
+    let options = new RequestOptions({ headers: headers });
+    let url = Constants.API_ENDPOINT+'organization/deleteOrganizationByIdOrganization/'+idOrganization;
+    let response = this.http.get(url,options).map(res => res.json()).catch(this.handleError);
+    return response;
+  }
+
   private handleError (error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
