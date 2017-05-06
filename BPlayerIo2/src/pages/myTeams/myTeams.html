@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>My Teams</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label floating>Organization</ion-label>
+    <ion-select (ionChange)='selectIdOrganization()' [(ngModel)]="idOrganization">
+      <ion-option value="0">Select an Organization</ion-option>
+      <ion-option *ngFor="let organizationDto of listOrganizationDto" value="{{organizationDto.id}}">{{organizationDto.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <button ion-item *ngFor="let teamDto of listTeamDto">
+      <div class="item-note">{{teamDto.name}}</div>
+    </button>
+  </ion-list>
+
+
+</ion-content>
