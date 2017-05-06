@@ -10,6 +10,7 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
 import { MyOrganizations } from '../pages/myOrganizations/myOrganizations';
 import { MyTeams} from '../pages/myTeams/myTeams';
+import { MyPlayers } from '../pages/myPlayers/myPlayers';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class MyApp {
     this.pages = [
       { title: 'Hello Ionic', component: HelloIonicPage },
       { title: 'My First List', component: ListPage },
+      { title: 'My Players', component: MyPlayers },
       { title: 'My Teams', component: MyTeams },
       { title: 'My Organizations', component: MyOrganizations}
     ];

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>My Players</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label floating>Organization</ion-label>
+    <ion-select (ionChange)='selectIdOrganization()' [(ngModel)]="idOrganization">
+      <ion-option value="0">Select an Organization</ion-option>
+      <ion-option *ngFor="let organizationDto of listOrganizationDto" value="{{organizationDto.id}}">{{organizationDto.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Team</ion-label>
+    <ion-select (ionChange)='selectIdTeam()' [(ngModel)]="idTeam">
+      <ion-option value="0">Select a Team</ion-option>
+      <ion-option *ngFor="let teamDto of listTeamDto" value="{{teamDto.id}}">{{teamDto.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <button ion-item *ngFor="let playerDto of listPlayerDto">
+      <div class="item-note">{{playerDto.name}}</div>
+    </button>
+  </ion-list>
+
+
+</ion-content>
