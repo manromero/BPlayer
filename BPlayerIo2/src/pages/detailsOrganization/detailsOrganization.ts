@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
 import { Login } from '../login/login';
+import { Main } from '../main/main';
 import { CreateTeam } from '../createTeam/createTeam';
 import { OrganizationService } from '../../providers/organizationService';
 import { BUserService } from '../../providers/bUserService';
@@ -101,7 +102,82 @@ export class DetailsOrganization {
   }
 
   deleteOrganization(){
-    console.log("Trying to delete an organization");
+    console.log("Delete Organization");
+    this.storage.ready().then(()=>
+      this.storage.get('id_token').then((token) => {
+        //Si el token a expirado nos vamos a la pagina de bienvenida
+        if(this.jwtHelper.isTokenExpired(token)){
+          this.navCtrl.setRoot(Login);
+        }else{
+
+          var options = {
+            title: 'Do you want to delete this organization?',
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Cancel clicked. Not to delete organization');
+                }
+              },
+              {
+                text: 'Delete',
+                handler: () => {
+                  console.log('Call to provider to delete organization');
+                  let errorsToDelete: any;
+                  this.organizationService.deleteOrganizationByIdOrganization(this.organization.id, token).subscribe(
+
+
+                    data => {
+
+                      errorsToDelete = data;
+                      //Si la respuesta contiene errrores, se ha producido un error inexperado
+                      if(errorsToDelete.length>0){
+                        let errorAlert = this.alertCtrl.create({
+                          title: 'Register Error',
+                          subTitle: 'An unexpected error has occurred',
+                          buttons: ['OK']
+                        });
+                        errorAlert.present();
+                      }else{
+                        let confirmAlert = this.alertCtrl.create({
+                          title: 'Organization deleted properly',
+                          subTitle: 'The organization has benn deleted',
+                          buttons: [
+                            {
+                              text: 'OK',
+                              handler: () => {
+                                this.navCtrl.setRoot(Main);
+                              }
+                            }
+                          ]
+                        });
+                        confirmAlert.present();
+                      }
+
+                    },
+                    err => {
+                      console.log(err);
+                    },
+                    () => console.log('Call to organizationServie.delete finished')
+
+                  );
+
+
+
+
+
+                }
+
+              }
+            ]
+          }
+          let alert = this.alertCtrl.create(options);
+          alert.present();
+
+        }
+
+      }));
   }
 
 }
