@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Team</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <h2 text-center *ngIf="team">{{team.name}}</h2>
+
+  <h3 *ngIf="team && team.listPlayerDto.length>0">Players</h3>
+  <ion-list *ngIf="team">
+    <button ion-item *ngFor="let playerDto of team.listPlayerDto">
+      <div class="item-note">{{playerDto.name}}</div>
+    </button>
+  </ion-list>
+
+
+  <p *ngIf="team">
+    <button ion-button full (click)="findListPlayerToAddToTeam()">Add a Player</button>
+  </p>
+
+  <p *ngIf="team">
+    <button ion-button full color="danger" (click)="deleteTeam()" [disabled]="team.listPlayerDto.length>0">Delete</button>
+  </p>
+
+</ion-content>

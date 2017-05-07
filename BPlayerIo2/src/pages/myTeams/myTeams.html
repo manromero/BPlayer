@@ -18,7 +18,7 @@
   </ion-item>
 
   <ion-list>
-    <button ion-item *ngFor="let teamDto of listTeamDto">
+    <button ion-item *ngFor="let teamDto of listTeamDto" (click)="goToDetailsTeamPage(teamDto.id)">
       <div class="item-note">{{teamDto.name}}</div>
     </button>
   </ion-list>

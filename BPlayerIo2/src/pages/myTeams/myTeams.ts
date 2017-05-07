@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { NavController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
 import { Login } from '../login/login';
+import { DetailsTeam } from '../detailsTeam/detailsTeam';
 import { OrganizationService } from '../../providers/organizationService';
 import { TeamService } from '../../providers/teamService';
 
@@ -65,6 +66,13 @@ export class MyTeams {
 
         }
       }));
+  }
+
+  //Va la la pagina de detalles de un team
+  goToDetailsTeamPage(idTeam){
+    this.navCtrl.push(DetailsTeam, {
+      idTeam: idTeam
+    });
   }
 
 }

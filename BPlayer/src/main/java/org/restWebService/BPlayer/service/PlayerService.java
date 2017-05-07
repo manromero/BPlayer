@@ -76,6 +76,21 @@ public class PlayerService {
 	}
 	
 	/**
+	 * Devuelve la lista de jugadores que podrian be added to a team, es decir, aquellos que esten en la organizacion
+	 * pero que no esten en el team
+	 * @param idTeam
+	 * @return
+	 */
+	public List<PlayerDto> findListPlayerToAddTeam(Long idTeam) {
+		List<PlayerDto> res = new ArrayList<>();
+		if(idTeam!=null){
+			List<Player> entities = playerRepository.findListPlayerToAddTeam(idTeam);
+			res = convertListEntityToListDto(entities);
+		}
+		return res;
+	}
+	
+	/**
 	 * Añade un palyer a un team, y devuelve los jugadores de un equipo
 	 * @param idBUser
 	 * @param idOrganization

@@ -38,9 +38,21 @@ public class PlayerController {
 		return res;
 	}
 	
+	@RequestMapping(value = "/findPlayersByIdTeam/{idTeam}")
+	public List<PlayerDto> findPlayersByIdTeam(@PathVariable("idTeam") Long idTeam) {
+		List<PlayerDto> res = playerService.findPlayersByIdTeam(idTeam);
+		return res;
+	}
+	
 	@RequestMapping(value="/addPlayerToTeam/{idPlayer}/{idTeam}")
 	public List<PlayerDto> addPlayerToTeam(@PathVariable("idPlayer") Long idPlayer, @PathVariable("idTeam") Long idTeam){
 		List<PlayerDto> res = playerService.addPlayerToTeam(idPlayer, idTeam);
+		return res;
+	}
+	
+	@RequestMapping(value="/findListPlayerToAddTeam/{idTeam}")
+	public List<PlayerDto> findListPlayerToAddTeam(@PathVariable("idTeam") Long idTeam){
+		List<PlayerDto> res = playerService.findListPlayerToAddTeam(idTeam);
 		return res;
 	}
 	

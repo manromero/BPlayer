@@ -33,7 +33,9 @@ public class Application {
                 registry.addMapping("/team/deleteTeamByIdTeam/*");
                 registry.addMapping("/player/create");
                 registry.addMapping("/player/findPlayersByIdOrganization/*");
+                registry.addMapping("/player/findPlayersByIdTeam/*");
                 registry.addMapping("/player/addPlayerToTeam/*/*");
+                registry.addMapping("/player/findListPlayerToAddTeam/*");
             }
         };
     }

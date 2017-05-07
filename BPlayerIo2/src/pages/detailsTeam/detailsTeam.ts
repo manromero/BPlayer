@@ -4,21 +4,20 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
 import { Login } from '../login/login';
 import { Main } from '../main/main';
-import { CreateTeam } from '../createTeam/createTeam';
-import { OrganizationService } from '../../providers/organizationService';
-import { BUserService } from '../../providers/bUserService';
+import { TeamService } from '../../providers/teamService';
+import { PlayerService } from '../../providers/playerService';
 
 @Component({
-  selector: 'page-detailsOrganization',
-  templateUrl: 'detailsOrganization.html',
-  providers: [OrganizationService, BUserService]
+  selector: 'page-detailsTeam',
+  templateUrl: 'detailsTeam.html',
+  providers: [TeamService, PlayerService]
 })
-export class DetailsOrganization {
+export class DetailsTeam {
 
-  organization: any;
+  team: any;
   jwtHelper: JwtHelper;
 
-	constructor(public storage: Storage, public navCtrl: NavController, public navParams: NavParams, private organizationService: OrganizationService, private bUserService: BUserService, private alertCtrl: AlertController) {
+	constructor(public storage: Storage, public navCtrl: NavController, public navParams: NavParams, private teamService: TeamService, private playerService: PlayerService, private alertCtrl: AlertController) {
 		console.log('Constructor CreateTeam');
     this.jwtHelper = new JwtHelper();
     this.storage.ready().then(()=>
@@ -29,21 +28,16 @@ export class DetailsOrganization {
         }else{
 
           //LLamada al provider para recuperar los datos de la organization
-          this.organizationService.findDetailedOrganizationByIdOrganization(navParams.get('idOrganization'), token).subscribe(data => this.organization = data);
+          this.teamService.findDetailedTeamByIdTeam(navParams.get('idTeam'), token).subscribe(data => this.team = data);
 
         }
 
       }));
 	}
 
-  //Va a la pagina de creacion de Team
-  goToCreateTeamPage(){
-    this.navCtrl.push(CreateTeam);
-  }
+  findListPlayerToAddToTeam(){
 
-  //Find BUser that could be a new administrator
-  findListBUserToBeAdministrator(){
-	  console.log("Find BUser that could be a new administrator");
+    console.log("Find Player that could be added to the team");
     //Antes de la llamada al web service necesitamos recuperar el token
     this.storage.ready().then(()=>
       this.storage.get('id_token').then((token) => {
@@ -53,21 +47,21 @@ export class DetailsOrganization {
         }else{
 
           //LLamamos a la funcion que recupera los administradores
-          this.bUserService.findListBUserToBeAdministrator(this.organization.id, token).subscribe(
+          this.playerService.findListPlayerToAddTeam(this.team.id, token).subscribe(
 
 
             data => {
-              let listBUserToBeAdministrator: any[]  = data;
-              console.log(listBUserToBeAdministrator);
+              let lisPlayerToAddTeam: any[]  = data;
+              console.log(lisPlayerToAddTeam);
               //Opciones de la alerta a mostrar
               var options = {
-                title: 'Add a new Administrator',
+                title: 'Add a Player',
                 buttons: [
                   {
                     text: 'Cancel',
                     role: 'cancel',
                     handler: () => {
-                      console.log('Cancel clicked. No administrator is added');
+                      console.log('Cancel clicked. No Team is added');
                     }
                   },
                   {
@@ -75,15 +69,15 @@ export class DetailsOrganization {
                     handler: data => {
                       console.log(data);
                       //Se actualiza la lista de administradores
-                      this.bUserService.addBUserToOrganization(data,this.organization.id, token).subscribe(administrators => this.organization.administrators = administrators);
+                      this.playerService.addPlayerToTeam(data,this.team.id, token).subscribe(players => this.team.listPlayerDto = players);
 
                     }
                   }
                 ],
                 inputs : []
               }
-              for(let i=0; i< listBUserToBeAdministrator.length; i++) {
-                options.inputs.push({ name : 'options', value: listBUserToBeAdministrator[i].id, label: listBUserToBeAdministrator[i].username, type: 'radio' });
+              for(let i=0; i< lisPlayerToAddTeam.length; i++) {
+                options.inputs.push({ name : 'options', value: lisPlayerToAddTeam[i].id, label: lisPlayerToAddTeam[i].name, type: 'radio' });
               }
               let alert = this.alertCtrl.create(options);
               alert.present();
@@ -93,16 +87,17 @@ export class DetailsOrganization {
             err => {
               console.log(err);
             },
-            () => console.log('Call to bUserService.findListBUserToBeAdministrator finished')
+            () => console.log('Call to playerService.findListPlayerToAddTeam finished')
           );
 
         }
 
       }));
+
   }
 
-  deleteOrganization(){
-    console.log("Delete Organization");
+  deleteTeam(){
+    console.log("Delete Team");
     this.storage.ready().then(()=>
       this.storage.get('id_token').then((token) => {
         //Si el token a expirado nos vamos a la pagina de bienvenida
@@ -111,21 +106,21 @@ export class DetailsOrganization {
         }else{
 
           var options = {
-            title: 'Do you want to delete this organization?',
+            title: 'Do you want to delete this team?',
             buttons: [
               {
                 text: 'Cancel',
                 role: 'cancel',
                 handler: () => {
-                  console.log('Cancel clicked. Not to delete organization');
+                  console.log('Cancel clicked. Not to delete team');
                 }
               },
               {
                 text: 'Delete',
                 handler: () => {
-                  console.log('Call to provider to delete organization');
+                  console.log('Call to provider to delete team');
                   let errorsToDelete: any;
-                  this.organizationService.deleteOrganizationByIdOrganization(this.organization.id, token).subscribe(
+                  this.teamService.deleteTeamByIdTeam(this.team.id, token).subscribe(
 
 
                     data => {
@@ -141,8 +136,8 @@ export class DetailsOrganization {
                         errorAlert.present();
                       }else{
                         let confirmAlert = this.alertCtrl.create({
-                          title: 'Organization deleted properly',
-                          subTitle: 'The organization has been deleted',
+                          title: 'Team deleted properly',
+                          subTitle: 'The team has been deleted',
                           buttons: [
                             {
                               text: 'OK',
@@ -159,12 +154,9 @@ export class DetailsOrganization {
                     err => {
                       console.log(err);
                     },
-                    () => console.log('Call to organizationServie.delete finished')
+                    () => console.log('Call to teamService.delete finished')
 
                   );
-
-
-
 
 
                 }
