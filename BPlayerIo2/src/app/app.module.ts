@@ -15,6 +15,7 @@ import { CreatePlayer } from '../pages/createPlayer/createPlayer';
 import { MyTeams } from '../pages/myTeams/myTeams';
 import { MyPlayers } from '../pages/myPlayers/myPlayers';
 import { DetailsTeam } from '../pages/detailsTeam/detailsTeam';
+import { CreateMatch } from '../createMatch/createMatch';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -50,7 +51,8 @@ export function getAuthHttp(http) {
     CreatePlayer,
     MyTeams,
     MyPlayers,
-    DetailsTeam
+    DetailsTeam,
+    CreateMatch
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -72,7 +74,8 @@ export function getAuthHttp(http) {
     CreatePlayer,
     MyTeams,
     MyPlayers,
-    DetailsTeam
+    DetailsTeam,
+    CreateMatch
   ],
   providers: [
     StatusBar,

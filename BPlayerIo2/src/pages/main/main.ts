@@ -6,6 +6,7 @@ import { Login } from '../login/login';
 import { CreateOrganization } from '../createOrganization/createOrganization';
 import { CreateTeam } from '../createTeam/createTeam';
 import { CreatePlayer } from '../createPlayer/createPlayer';
+import { CreateMatch } from '../createMatch/createMatch';
 
 @Component({
   selector: 'page-main',
@@ -43,6 +44,10 @@ export class Main {
   //Va a la pagina de creacion de Player
   goToCreatePlayerPage() {
     this.navCtrl.push(CreatePlayer);
+  }
+
+  goToCreateMatchPage(){
+	  this.navCtrl.push(CreateMatch);
   }
 
 }
