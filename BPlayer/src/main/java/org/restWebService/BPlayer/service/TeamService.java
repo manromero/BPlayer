@@ -199,7 +199,7 @@ public class TeamService {
 	 * @param aux
 	 * @return
 	 */
-	private TeamDto convertEntityToDto(Team entity) {
+	public TeamDto convertEntityToDto(Team entity) {
 		TeamDto dto = null;
 		if(entity!=null){
 			dto = new TeamDto();
