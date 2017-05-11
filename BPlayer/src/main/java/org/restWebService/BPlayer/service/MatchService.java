@@ -8,7 +8,6 @@ import org.restWebService.BPlayer.domain.Match;
 import org.restWebService.BPlayer.domain.MatchStatus;
 import org.restWebService.BPlayer.domain.Team;
 import org.restWebService.BPlayer.dto.MatchDto;
-import org.restWebService.BPlayer.dto.TeamDto;
 import org.restWebService.BPlayer.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,10 +60,10 @@ public class MatchService {
 			if(matchDto.getIdOrganization()==null || matchDto.getIdOrganization().equals(0l)){
 				res.add("Organization can not be null");
 			}
-			if(matchDto.getHomeTeam()==null || matchDto.getHomeTeam().getId()==null || matchDto.getHomeTeam().getId().equals(0l)){
+			if(matchDto.getIdHomeTeam()==null || matchDto.getIdHomeTeam().equals(0l)){
 				res.add("Home Team can not be null");
 			}
-			if(matchDto.getAwayTeam()==null || matchDto.getAwayTeam().getId()==null || matchDto.getAwayTeam().getId().equals(0l)){
+			if(matchDto.getIdAwayTeam()==null || matchDto.getIdAwayTeam().equals(0l)){
 				res.add("Away Team can not be null");
 			}
 			if(matchDto.getDate()==null){
@@ -108,8 +107,8 @@ public class MatchService {
 			entity.setRestTime(dto.getRestTime());
 			entity.setFaulsAllowedTeam(dto.getFaulsAllowedTeam());
 			entity.setFaulsAllowedPlayer(dto.getFaulsAllowedPlayer());
-			Team homeTeam = teamService.findOne(dto.getHomeTeam().getId());
-			Team awayTeam = teamService.findOne(dto.getAwayTeam().getId());
+			Team homeTeam = teamService.findOne(dto.getIdHomeTeam());
+			Team awayTeam = teamService.findOne(dto.getIdAwayTeam());
 			entity.setHomeTeam(homeTeam);
 			entity.setAwayTeam(awayTeam);
 		}
@@ -127,10 +126,8 @@ public class MatchService {
 			dto = new MatchDto();
 			dto.setId(entity.getId());
 			dto.setIdOrganization(entity.getHomeTeam().getOrganization().getId());
-			TeamDto homeTeam = teamService.convertEntityToDto(entity.getHomeTeam());
-			TeamDto awayTeam = teamService.convertEntityToDto(entity.getAwayTeam());
-			dto.setHomeTeam(homeTeam);
-			dto.setAwayTeam(awayTeam);
+			dto.setIdHomeTeam(entity.getHomeTeam().getId());
+			dto.setIdAwayTeam(entity.getAwayTeam().getId());
 			dto.setDate(entity.getDate());
 			dto.setNumQuarter(entity.getNumQuarter());
 			dto.setQuarterTime(entity.getQuarterTime());

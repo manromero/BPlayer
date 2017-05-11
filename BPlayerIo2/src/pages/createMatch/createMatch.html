@@ -9,5 +9,47 @@
 
 <ion-content>
 
+  <form [formGroup]="createMatchForm" (ngSubmit)="createMatch()">
+
+    <ion-item>
+      <ion-label floating>Organization</ion-label>
+      <ion-select formControlName="idOrganization">
+        <ion-option value="0">Select an Organization</ion-option>
+        <ion-option *ngFor="let organization of listOrgnization" value="{{organization.id}}">{{organization.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="(createMatchForm.value.idOrganization==null || createMatchForm.value.idOrganization<1)  && createMatchForm.controls['idOrganization'].touched">
+      <p>Organization is required</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Home Team</ion-label>
+      <ion-select formControlName="idHomeTeam">
+        <ion-option value="0">Select a Team</ion-option>
+        <ion-option *ngFor="let team of listTeam" value="{{team.id}}">{{team.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="(createMatchForm.value.idHomeTeam==null || createMatchForm.value.idHomeTeam<1)  && createMatchForm.controls['idHomeTeam'].touched">
+      <p>Home Team is required</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Away Team</ion-label>
+      <ion-select formControlName="idAwayTeam">
+        <ion-option value="0">Select a Team</ion-option>
+        <ion-option *ngFor="let team of listTeam" value="{{team.id}}">{{team.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="(createMatchForm.value.idAwayTeam==null || createMatchForm.value.idAwayTeam<1)  && createMatchForm.controls['idAwayTeam'].touched">
+      <p>Away Team is required</p>
+    </ion-item>
+
+    <button ion-button full type="submit">Create</button>
+
+  </form>
+
+
+
+
 
 </ion-content>

@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NavController, AlertController } from 'ionic-angular';
 import { JwtHelper } from 'angular2-jwt';
-import { Login } from '../Login/Login';
+import { Login } from '../login/login';
 import { OrganizationService } from '../../providers/organizationService';
 
 @Component({
@@ -48,7 +48,7 @@ export class CreateOrganization {
         this.storage.get('id_token').then((token) => {
           //Si el token a expirado nos vamos a la pagina de bienvenida
           if(this.jwtHelper.isTokenExpired(token)){
-            this.navCtrl.setRoot(HelloIonicPage);
+            this.navCtrl.setRoot(Login);
           }else{
 
             this.organizationService.create(this.createOrganizationForm.value, token).subscribe(

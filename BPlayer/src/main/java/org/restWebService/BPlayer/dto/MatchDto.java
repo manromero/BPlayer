@@ -6,8 +6,8 @@ public class MatchDto extends Dto {
 	
 	private long id;
 	private Long idOrganization;
-	private TeamDto homeTeam;
-	private TeamDto awayTeam;
+	private Long idHomeTeam;
+	private Long idAwayTeam;
 	private Date date;
 	private Integer numQuarter;
 	private Integer quarterTime;
@@ -36,20 +36,20 @@ public class MatchDto extends Dto {
 		this.idOrganization = idOrganization;
 	}
 
-	public TeamDto getHomeTeam() {
-		return homeTeam;
+	public Long getIdHomeTeam() {
+		return idHomeTeam;
 	}
 
-	public void setHomeTeam(TeamDto homeTeam) {
-		this.homeTeam = homeTeam;
+	public void setIdHomeTeam(Long idHomeTeam) {
+		this.idHomeTeam = idHomeTeam;
 	}
 
-	public TeamDto getAwayTeam() {
-		return awayTeam;
+	public Long getIdAwayTeam() {
+		return idAwayTeam;
 	}
 
-	public void setAwayTeam(TeamDto awayTeam) {
-		this.awayTeam = awayTeam;
+	public void setIdAwayTeam(Long idAwayTeam) {
+		this.idAwayTeam = idAwayTeam;
 	}
 
 	public Date getDate() {
